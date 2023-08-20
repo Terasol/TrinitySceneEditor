@@ -59,28 +59,10 @@ namespace TrinitySceneEditor
             if (fs != null) ((IDisposable)fs).Dispose();
         }
 
-        //public static ulong FNV1a64(string str)
-        //{
-        //    byte[] bytes = Encoding.Default.GetBytes(str);
-        //    const ulong fnv64Offset = 0xCBF29CE484222645;
-        //    const ulong fnv64Prime = 0x00000100000001b3;
-        //    ulong hash = fnv64Offset;
-
-        //    for (var i = 0; i < bytes.Length; i++)
-        //    {
-        //        hash ^= bytes[i];
-        //        hash *= fnv64Prime;
-        //    }
-
-        //    return hash;
-        //}
-
         public string[] SearchFiles(Regex regex)
         {
             if (TRPFDT == null) return Array.Empty<string>();
             List<string> files = new();
-
-            //Regex rx = new(regex, RegexOptions.IgnoreCase);
 
             foreach (ulong hash in TRPFDT.FileHashes)
             {
