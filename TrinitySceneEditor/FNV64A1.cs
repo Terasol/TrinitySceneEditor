@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     public class FNV64A1
     {

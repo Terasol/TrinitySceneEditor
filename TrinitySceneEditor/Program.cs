@@ -1,4 +1,4 @@
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     internal static class Program
     {

@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using Titan.TrinityScene;
 
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     public partial class SceneEditor : Form
     {

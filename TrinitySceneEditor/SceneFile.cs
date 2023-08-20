@@ -1,7 +1,6 @@
-﻿using System.Xml.Linq;
-using Titan.TrinityScene;
+﻿using Titan.TrinityScene;
 
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     public class SceneFile
     {

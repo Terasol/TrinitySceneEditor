@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using Titan.FileSystem;
 
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     public class RomFS : IDisposable
     {
@@ -59,35 +59,35 @@ namespace TrinitySceneView
             if (fs != null) ((IDisposable)fs).Dispose();
         }
 
-        public static ulong FNV1a64(string str)
-        {
-            byte[] bytes = Encoding.Default.GetBytes(str);
-            const ulong fnv64Offset = 0xCBF29CE484222645;
-            const ulong fnv64Prime = 0x00000100000001b3;
-            ulong hash = fnv64Offset;
+        //public static ulong FNV1a64(string str)
+        //{
+        //    byte[] bytes = Encoding.Default.GetBytes(str);
+        //    const ulong fnv64Offset = 0xCBF29CE484222645;
+        //    const ulong fnv64Prime = 0x00000100000001b3;
+        //    ulong hash = fnv64Offset;
 
-            for (var i = 0; i < bytes.Length; i++)
-            {
-                hash ^= bytes[i];
-                hash *= fnv64Prime;
-            }
+        //    for (var i = 0; i < bytes.Length; i++)
+        //    {
+        //        hash ^= bytes[i];
+        //        hash *= fnv64Prime;
+        //    }
 
-            return hash;
-        }
+        //    return hash;
+        //}
 
-        public string[] SearchFiles(string regex)
+        public string[] SearchFiles(Regex regex)
         {
             if (TRPFDT == null) return Array.Empty<string>();
             List<string> files = new();
 
-            Regex rx = new(regex, RegexOptions.IgnoreCase);
+            //Regex rx = new(regex, RegexOptions.IgnoreCase);
 
             foreach (ulong hash in TRPFDT.FileHashes)
             {
                 string path = GFPAKHashCache.GetHashName(hash);
                 if(path != null)
                 {
-                    if (rx.IsMatch(path))
+                    if (regex.IsMatch(path))
                     {
                         files.Add(path);
                     }
@@ -99,7 +99,7 @@ namespace TrinitySceneView
         public byte[] GetFile(string FilePath)
         {
             if (_data_file_present)
-                return GetFile(FNV1a64(FilePath), FilePath);
+                return GetFile(FNV64A1.Calculate(FilePath), FilePath);
             else
             {
                 if (Path.Exists(Path.Combine(_romFS_path, FilePath))) return File.ReadAllBytes(Path.Combine(_romFS_path, FilePath));
@@ -121,7 +121,7 @@ namespace TrinitySceneView
             {
                 int packindex = (int)TRPFDT.Files[index].PackIndex;
 
-                ulong packhash = FNV1a64(TRPFDT.PackStrings[packindex]);
+                ulong packhash = FNV64A1.Calculate(TRPFDT.PackStrings[packindex]);
                 int ind = TRPFST.FileHashes.IndexOf(packhash);
 
                 ulong offset = TRPFST.FileOffsets[ind];

@@ -1,6 +1,6 @@
 ﻿using System.Runtime.InteropServices;
 
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     // Code from https://github.com/JKAnderson/SoulsFormats/blob/master/SoulsFormats/Util/Oodle26.cs
     public static class Oodle

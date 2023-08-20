@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     public static class DefaultIcons
     {
         private static Icon? _folderIcon;
-        public static Icon FolderLarge => _folderIcon ?? (_folderIcon = GetStockIcon(SIID_FOLDER, SHGSI_LARGEICON));
+        public static Icon FolderLarge => _folderIcon ??= GetStockIcon(SIID_FOLDER, SHGSI_LARGEICON);
         private static Icon? _folderOpenIcon;
-        public static Icon FolderOpenLarge => _folderOpenIcon ?? (_folderOpenIcon = GetStockIcon(SIID_FOLDEROPEN, SHGSI_LARGEICON));
+        public static Icon FolderOpenLarge => _folderOpenIcon ??= GetStockIcon(SIID_FOLDEROPEN, SHGSI_LARGEICON);
         private static Icon? _FileIcon;
-        public static Icon FileLarge => _FileIcon ?? (_FileIcon = GetStockIcon(SIID_DOCNOASSOC, SHGSI_LARGEICON));
+        public static Icon FileLarge => _FileIcon ??= GetStockIcon(SIID_DOCNOASSOC, SHGSI_LARGEICON);
 
         private static Icon GetStockIcon(uint type, uint size)
         {

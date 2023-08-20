@@ -1,5 +1,5 @@
 ﻿
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     static class Filemanager
     {

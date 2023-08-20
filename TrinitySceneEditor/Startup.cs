@@ -2,7 +2,7 @@
 using System.Xml.Linq;
 using Titan.FileSystem;
 
-namespace TrinitySceneView
+namespace TrinitySceneEditor
 {
     public partial class Startup : Form
     {
