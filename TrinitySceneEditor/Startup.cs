@@ -6,7 +6,7 @@ namespace TrinitySceneEditor
 {
     public partial class Startup : Form
     {
-        public Settings Settings = new();
+        public static Settings Settings = new();
         public Startup()
         {
             InitializeComponent();
@@ -48,8 +48,7 @@ namespace TrinitySceneEditor
 
         private void UpdateSettings()
         {
-            Settings ??= new Settings();
-            switch (Settings.mode)
+            switch (Settings.Mode)
             {
                 case Mode.Single_File:
                     Settings.last_opened_file = textBox1.Text;
@@ -63,12 +62,12 @@ namespace TrinitySceneEditor
                 default:
                     break;
             }
-            Settings.mode = (Mode)comboBox1.SelectedIndex;
+            Settings.Mode = (Mode)comboBox1.SelectedIndex;
         }
 
         private void ProcessSettings()
         {
-            switch (Settings.mode)
+            switch (Settings.Mode)
             {
                 case Mode.Single_File:
                     Label_File_Path.Text = "Scene File Path:";
@@ -158,7 +157,7 @@ namespace TrinitySceneEditor
 
         private void Button_select_path_Click(object? sender, EventArgs e)
         {
-            switch (Settings.mode)
+            switch (Settings.Mode)
             {
                 case Mode.Single_File:
                     openFileDialog1.Title = "Select Trinity Scene File";
@@ -227,21 +226,21 @@ namespace TrinitySceneEditor
 
         private void Button_load_Click(object sender, EventArgs e)
         {
-            switch (Settings.mode)
+            switch (Settings.Mode)
             {
                 case Mode.Single_File:
                     SceneEditor sv = new(Settings.last_opened_file);
                     sv.Show();
                     break;
                 case Mode.Folder:
-                    FolderView fvf = new(Settings.last_opened_folder,Settings.mode);
+                    FolderView fvf = new();
                     fvf.FormClosed += (object? sender, FormClosedEventArgs e) =>{ Show(); };
                     Hide();
                     fvf.Show();
                     break;
                 case Mode.RomFS:
                     GFPAKHashCache.LoadHashCache();
-                    FolderView fvrfs = new(Settings.last_opened_RomFS, Settings.mode);
+                    FolderView fvrfs = new();
                     fvrfs.FormClosed += (object? sender, FormClosedEventArgs e) => { Show(); };
                     Hide();
                     fvrfs.Show();

@@ -8,20 +8,19 @@ namespace TrinitySceneEditor
 {
     public partial class FolderView : Form
     {
-        readonly string Folder_path;
-        readonly Mode Mode;
-        public FolderView(string Path, Mode Mode)
+        readonly string Folder_path = "";
+        public FolderView()
         {
             InitializeComponent();
-            this.Mode = Mode;
-            Folder_path = Path;
-            if (Mode == Mode.Folder)
+            if (Startup.Settings.Mode == Mode.Folder)
             {
-                treeView1.Nodes.Add($"Loading Files in {Path}");
+                treeView1.Nodes.Add($"Loading Files in {Startup.Settings.last_opened_folder}");
+                Folder_path = Startup.Settings.last_opened_folder;
             }
-            else if(Mode == Mode.RomFS)
+            else if(Startup.Settings.Mode == Mode.RomFS)
             {
                 treeView1.Nodes.Add($"Loading Files from RomFS");
+                Folder_path = Startup.Settings.last_opened_RomFS;
             }
             Setup();
         }
@@ -41,13 +40,13 @@ namespace TrinitySceneEditor
         public void Setup_File_List()
         {
 
-            if (Mode == Mode.RomFS)
+            if (Startup.Settings.Mode == Mode.RomFS)
             {
                 Filemanager.RomFS = new RomFS(Folder_path);
                 string[] files = Filemanager.RomFS.SearchFiles(Scene_File_Extensions());
                 CreateNodes(files);
             }
-            else if (Mode == Mode.Folder)
+            else if (Startup.Settings.Mode == Mode.Folder)
             {
                 Regex reg = Scene_File_Extensions();
 
@@ -67,13 +66,13 @@ namespace TrinitySceneEditor
             {
                 string short_path = full_path;
                 string[] path = Array.Empty<string>();
-                if (Mode == Mode.Folder)
+                if (Startup.Settings.Mode == Mode.Folder)
                 {
                     short_path = full_path.Replace(Folder_path, "");
                     if (short_path.StartsWith("\\")) short_path = short_path.Remove(0,1);
                     path = short_path.Split("\\");
                 }
-                else if(Mode == Mode.RomFS) path = short_path.Split("/");
+                else if(Startup.Settings.Mode == Mode.RomFS) path = short_path.Split("/");
                 TreeNode? n = nodes.FirstOrDefault(n => n.Text == path[0]);
                 if (n == null)
                 {

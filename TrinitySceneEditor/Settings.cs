@@ -6,7 +6,7 @@ namespace TrinitySceneEditor
         public string last_opened_file { get; set; }
         public string last_opened_folder { get; set; }
         public string last_opened_RomFS { get; set; }
-        public Mode mode { get; set; }
+        public Mode Mode { get; set; }
         public Settings() 
         {
             last_opened_file = string.Empty;
