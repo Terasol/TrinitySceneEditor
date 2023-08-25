@@ -11,6 +11,7 @@ namespace TrinitySceneEditor
         SceneFile? OpenScene;
 
         ToolStripButton _propertyGridSaveButton;
+        ToolStripButton _propertyGridOpenSubSceneButton;
 
         public SceneEditor(string Filepath) :this()
         {
@@ -30,11 +31,16 @@ namespace TrinitySceneEditor
             {
                 Visible = false
             };
+            _propertyGridOpenSubSceneButton = new("📂", null, new EventHandler(PropertyGrid_Butto_OpenSubScene_Click), "Open")
+            {
+                Visible = false
+            };
             foreach (Control control in propertyGrid1.Controls)
             {
                 if (control is ToolStrip toolStrip)
                 {
                     toolStrip.Items.Add(_propertyGridSaveButton);
+                    toolStrip.Items.Add(_propertyGridOpenSubSceneButton);
                 }
             }
         }
@@ -103,6 +109,10 @@ namespace TrinitySceneEditor
             {
                 propertyGrid1.SelectedObject = Deserelize_SceneEntryT(entry);
                 _propertyGridSaveButton.Visible = true;
+                if (propertyGrid1.SelectedObject is SubSceneT)
+                    _propertyGridOpenSubSceneButton.Visible = true;
+                else
+                    _propertyGridOpenSubSceneButton.Visible = false;
             }
             else if (sceneView.SelectedNode.Tag is trinity_SceneT)
             {
@@ -131,6 +141,28 @@ namespace TrinitySceneEditor
             return null;
         }
 
+        private void PropertyGrid_Butto_OpenSubScene_Click(object? sender, EventArgs e)
+        {
+            if(sceneView.SelectedNode.Tag is SceneEntryT entry)
+            {
+                if(entry != null && OpenScene != null)
+                {
+                    if(entry.TypeName == "SubScene")
+                    {
+                        var subscene = Deserelize_SceneEntryT(entry);
+                        if(subscene is SubSceneT)
+                        {
+                            SceneFile? sf = Filemanager.OpenFile(((SubSceneT)subscene).FilePath, OpenScene);
+                            if (sf != null)
+                            {
+                                SceneEditor sv = new(sf);
+                                sv.Show();
+                            }
+                        }
+                    }
+                }
+            }
+        }
         private void PropertyGrid_Butto_Save_Click(object? sender, EventArgs e)
         {
             if (sceneView.SelectedNode != null)
