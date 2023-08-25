@@ -5,6 +5,7 @@ namespace TrinitySceneEditor
     public partial class FolderView : Form
     {
         readonly string Folder_path = "";
+        private readonly Dictionary<string, TreeNode> _SceneFileNodes = new();
         public FolderView()
         {
             InitializeComponent();
@@ -72,6 +73,7 @@ namespace TrinitySceneEditor
                 current_node.Tag = full_Path;
                 current_node.ImageIndex = 1;
                 current_node.SelectedImageIndex = 1;
+                _SceneFileNodes.Add(full_Path, current_node);
             }
             else
             {
@@ -129,9 +131,24 @@ namespace TrinitySceneEditor
                     {
                         SceneEditor sv = new(sf);
                         Hide();
-                        sv.FormClosed += (object? sender, FormClosedEventArgs e) => { Show(); };
+                        sv.FormClosed += SceneEditor_FormClosed;
                         sv.Show();
                     }
+                }
+            }
+        }
+
+        private void SceneEditor_FormClosed(object? sender, FormClosedEventArgs e)
+        {
+            Show();
+            string[]changedfiles = Filemanager.GetFilePathsOfChangedFiles();
+            foreach (string path in changedfiles)
+            {
+                if(_SceneFileNodes.ContainsKey(path))
+                {
+                    _SceneFileNodes[path].NodeFont = new Font(treeView1.Font, FontStyle.Bold);
+                    _SceneFileNodes[path].Text = _SceneFileNodes[path].Text;
+
                 }
             }
         }

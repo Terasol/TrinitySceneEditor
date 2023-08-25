@@ -1,4 +1,6 @@
 ﻿
+using System.Reflection.Metadata.Ecma335;
+
 namespace TrinitySceneEditor
 {
     static class Filemanager
@@ -51,6 +53,11 @@ namespace TrinitySceneEditor
         public static void CloseFile(SceneFile file)
         {
             Files.Remove(file);
+        }
+
+        public static string[] GetFilePathsOfChangedFiles()
+        {
+            return Files.Where(file => file.isChanged).Select(file => file.Filepath).ToArray();
         }
     }
 }
