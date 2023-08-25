@@ -42,21 +42,10 @@ namespace TrinitySceneEditor
 
         private void LoadSubNodes(TreeNode node, List<SceneEntryT> ents)
         {
-
             foreach (var ent in ents)
             {
-                var newnode = node.Nodes.Add(ent.TypeName);newnode.Tag = ent;
+                TreeNode newnode = node.Nodes.Add(ent.TypeName);
                 newnode.Tag = ent;
-                //if (ent.TypeName == "SubScene") //TODO: Add Checking for Setting
-                //{
-                //    SubSceneT s = SubSceneT.DeserializeFromBinary(ent.NestedType.ToArray());
-                //    SceneFile? sub_scenefile = Filemanager.OpenFile(s.FilePath, this);
-                //    if (sub_scenefile != null)
-                //    {
-                //        newnode.Nodes.Add(sub_scenefile.GetRootTreeNode());
-                //    }
-                //    else { }
-                //}
                 if (ent.SubObjects.Count > 0)
                     LoadSubNodes(newnode, ent.SubObjects);
             }
