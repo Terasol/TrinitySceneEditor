@@ -1,8 +1,4 @@
-﻿
-using System.Collections;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace TrinitySceneEditor
 {
@@ -22,15 +18,10 @@ namespace TrinitySceneEditor
                 treeView1.Nodes.Add($"Loading Files from RomFS");
                 Folder_path = Startup.Settings.last_opened_RomFS;
             }
-            Setup();
-        }
-
-        private void Setup()
-        {
             ImageList imglist = new()
             {
                 ColorDepth = ColorDepth.Depth32Bit,
-                Images = { DefaultIcons.FolderLarge.ToBitmap() , DefaultIcons.FileLarge.ToBitmap() }
+                Images = { DefaultIcons.FolderLarge.ToBitmap(), DefaultIcons.FileLarge.ToBitmap() }
             };
             treeView1.ImageList = imglist;
             var thread2 = new Thread(Setup_File_List);
@@ -59,9 +50,39 @@ namespace TrinitySceneEditor
 
         }
 
+        private void AddPathToNodes(TreeNodeCollection nodes, string[] path,string full_Path)
+        {
+            if(path.Length == 0) return;
+            int ind = nodes.IndexOfKey(path[0]);
+            TreeNode? current_node;
+            if (ind == -1)
+            {
+                current_node = new(path[0])
+                {
+                    Name = path[0]
+                };
+                nodes.Add(current_node);
+            }
+            else
+            {
+                current_node = nodes[ind];
+            }
+            if (path.Length == 1)
+            {
+                current_node.Tag = full_Path;
+                current_node.ImageIndex = 1;
+                current_node.SelectedImageIndex = 1;
+            }
+            else
+            {
+                AddPathToNodes(current_node.Nodes, path.Skip(1).ToArray(), full_Path);
+            }
+        }
+
         private void CreateNodes(string[] files)
         {
-            List<TreeNode> nodes = new();
+            TreeNode root_tmp = new();
+            Array.Sort(files);
             foreach (string full_path in files)
             {
                 string short_path = full_path;
@@ -73,47 +94,13 @@ namespace TrinitySceneEditor
                     path = short_path.Split("\\");
                 }
                 else if(Startup.Settings.Mode == Mode.RomFS) path = short_path.Split("/");
-                TreeNode? n = nodes.FirstOrDefault(n => n.Text == path[0]);
-                if (n == null)
-                {
-                    n = new TreeNode(path[0])
-                    {
-                        Name = path[0],
-                        ImageIndex = 0,
-                        SelectedImageIndex = 0
-                    };
-                    nodes.Add(n);
-                }
-                for (int i = 1; i < path.Length; i++)
-                {
-                    int ind = n.Nodes.IndexOfKey(path[i]);
-                    if (ind == -1)
-                    {
-                        TreeNode nn = new(path[i])
-                        {
-                            Name = path[i],
-                            ImageIndex = 0,
-                            SelectedImageIndex = 0
-                        };
-                        n.Nodes.Add(nn);
-                        n = nn;
-                    }
-                    else
-                    {
-                        n = n.Nodes[ind];
-                    }
-                    if (i == path.Length - 1)
-                    {
-                        n.Tag = full_path;
-                        n.ImageIndex = 1;
-                        n.SelectedImageIndex = 1;
-                    }
-                }
+
+                AddPathToNodes(root_tmp.Nodes, path, full_path);
             }
-            SetNodes(nodes.ToArray());
+            SetNodes(root_tmp.Nodes);
         }
 
-        public void SetNodes(TreeNode[] Nodes)
+        public void SetNodes(TreeNodeCollection Nodes)
         {
             if (treeView1.InvokeRequired)
             {
@@ -123,7 +110,10 @@ namespace TrinitySceneEditor
             else
             {
                 treeView1.Nodes.Clear();
-                treeView1.Nodes.AddRange(Nodes);
+                foreach (TreeNode node in Nodes)
+                {
+                    treeView1.Nodes.Add(node);
+                }
             }
         }
 
