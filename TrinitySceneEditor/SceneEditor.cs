@@ -165,24 +165,25 @@ namespace TrinitySceneEditor
         }
         private void PropertyGrid_Butto_Save_Click(object? sender, EventArgs e)
         {
-            if (sceneView.SelectedNode != null)
+            if (sceneView.SelectedNode != null && OpenScene != null)
             {
-                //SceneObjectData_Parsed[sceneView.SelectedNode] = propertyGrid1.SelectedObject;
-
-                //switch (InnerData[sceneView.SelectedNode].TypeName)
-                //{
-                //    case "SubScene":
-                //        InnerData[sceneView.SelectedNode].NestedType = ((SubSceneT)propertyGrid1.SelectedObject).SerializeToBinary().ToList();
-                //        break;
-                //    case "trinity_SceneObject":
-                //        InnerData[sceneView.SelectedNode].NestedType = ((trinity_SceneObjectT)propertyGrid1.SelectedObject).SerializeToBinary().ToList();
-                //        break;
-                //    case "ti_PokemonModelComponent":
-                //        InnerData[sceneView.SelectedNode].NestedType = ((ti_PokemonModelComponentT)propertyGrid1.SelectedObject).SerializeToBinary().ToList();
-                //        break;
-                //    default:
-                //        break;
-                //}
+                if (sceneView.SelectedNode.Tag is SceneEntryT entry)
+                {
+                    Type? type = Type.GetType($"Titan.TrinityScene.{entry.TypeName}T");
+                    if (type != null)
+                    {
+                        MethodInfo? Serialize = type.GetMethod("SerializeToBinary", BindingFlags.Instance | BindingFlags.Public);
+                        if (Serialize != null)
+                        {
+                            var output = Serialize.Invoke(propertyGrid1.SelectedObject, null);
+                            if (output is byte[] data)
+                            {
+                                entry.NestedType = data.ToList();
+                                OpenScene.isChanged = true;
+                            }
+                        }
+                    }
+                }
             }
         }
         private static TreeNode? Find_first_appearence(TreeNode start, object search_value)

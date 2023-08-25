@@ -6,6 +6,7 @@ namespace TrinitySceneEditor
     {
         public string Filepath = "";
         public string Extension { get { return Path.GetExtension(Filepath); } }
+        public bool isChanged = false;
         public string GameVarieant
         {
             get
