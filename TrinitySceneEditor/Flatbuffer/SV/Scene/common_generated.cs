@@ -57,6 +57,63 @@ public class Vec3fT
   }
 }
 
+public struct Vec4f : IFlatbufferObject
+{
+  private Struct __p;
+  public ByteBuffer ByteBuffer { get { return __p.bb; } }
+  public void __init(int _i, ByteBuffer _bb) { __p = new Struct(_i, _bb); }
+  public Vec4f __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+
+  public float X { get { return __p.bb.GetFloat(__p.bb_pos + 0); } }
+  public float Y { get { return __p.bb.GetFloat(__p.bb_pos + 4); } }
+  public float Z { get { return __p.bb.GetFloat(__p.bb_pos + 8); } }
+  public float W { get { return __p.bb.GetFloat(__p.bb_pos + 12); } }
+
+  public static Offset<Vec4f> CreateVec4f(FlatBufferBuilder builder, float X, float Y, float Z, float W) {
+    builder.Prep(4, 16);
+    builder.PutFloat(W);
+    builder.PutFloat(Z);
+    builder.PutFloat(Y);
+    builder.PutFloat(X);
+    return new Offset<Vec4f>(builder.Offset);
+  }
+  public Vec4fT UnPack() {
+    var _o = new Vec4fT();
+    this.UnPackTo(_o);
+    return _o;
+  }
+  public void UnPackTo(Vec4fT _o) {
+    _o.X = this.X;
+    _o.Y = this.Y;
+    _o.Z = this.Z;
+    _o.W = this.W;
+  }
+  public static Offset<Vec4f> Pack(FlatBufferBuilder builder, Vec4fT _o) {
+    if (_o == null) return default(Offset<Vec4f>);
+    return CreateVec4f(
+      builder,
+      _o.X,
+      _o.Y,
+      _o.Z,
+      _o.W);
+  }
+}
+
+public class Vec4fT
+{
+  public float X { get; set; }
+  public float Y { get; set; }
+  public float Z { get; set; }
+  public float W { get; set; }
+
+  public Vec4fT() {
+    this.X = 0.0f;
+    this.Y = 0.0f;
+    this.Z = 0.0f;
+    this.W = 0.0f;
+  }
+}
+
 public struct SRT : IFlatbufferObject
 {
   private Table __p;
