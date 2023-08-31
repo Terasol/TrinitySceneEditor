@@ -105,6 +105,7 @@
             Button_Revert_File_Changes.TabIndex = 1;
             Button_Revert_File_Changes.Text = "Revert";
             Button_Revert_File_Changes.UseVisualStyleBackColor = true;
+            Button_Revert_File_Changes.Click += Button_Revert_File_Changes_Click;
             // 
             // Button_Save_Changed_Files
             // 

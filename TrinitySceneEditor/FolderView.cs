@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.IO;
+using System.Text.RegularExpressions;
 
 namespace TrinitySceneEditor
 {
@@ -145,6 +146,27 @@ namespace TrinitySceneEditor
             }
         }
 
+        private void Button_Revert_File_Changes_Click(object sender, EventArgs e)
+        {
+            if (Filemanager.ChangedFiles > 0)
+            {
+                if (MessageBox.Show($"There are currently {Filemanager.ChangedFiles} changed files.\r\nDo really want to clear them?", "Clearing changes", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    string[] changedfiles = Filemanager.GetFilePathsOfChangedFiles();
+                    Filemanager.CloseAllFiles();
+                    foreach (string path in changedfiles)
+                    {
+                        if (_SceneFileNodes.ContainsKey(path))
+                        {
+                            _SceneFileNodes[path].NodeFont = new Font(treeView1.Font, FontStyle.Regular);
+                            _SceneFileNodes[path].Text = _SceneFileNodes[path].Text;
+
+                        }
+                    }
+                }
+            }
+        }
+
         private void SceneEditor_FormClosed(object? sender, FormClosedEventArgs e)
         {
             Show();
@@ -159,6 +181,7 @@ namespace TrinitySceneEditor
                 }
             }
         }
+
 
         [GeneratedRegex("(\\.trscn|\\.trsog)$",RegexOptions.IgnoreCase)]
         private static partial Regex Scene_File_Extensions();

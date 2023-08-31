@@ -105,9 +105,9 @@ namespace TrinitySceneEditor
 
         private void sceneView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            if (sceneView.SelectedNode.Tag is SceneEntryT entry)
+            if (sceneView.SelectedNode.Tag is EntryFileMapping entry)
             {
-                propertyGrid1.SelectedObject = Deserelize_SceneEntryT(entry);
+                propertyGrid1.SelectedObject = Deserelize_SceneEntryT(entry.SceneEntryT);
                 _propertyGridSaveButton.Visible = true;
                 if (propertyGrid1.SelectedObject is SubSceneT)
                     _propertyGridOpenSubSceneButton.Visible = true;
@@ -143,13 +143,13 @@ namespace TrinitySceneEditor
 
         private void PropertyGrid_Butto_OpenSubScene_Click(object? sender, EventArgs e)
         {
-            if(sceneView.SelectedNode.Tag is SceneEntryT entry)
+            if(sceneView.SelectedNode.Tag is EntryFileMapping entry)
             {
                 if(entry != null && OpenScene != null)
                 {
-                    if(entry.TypeName == "SubScene")
+                    if(entry.SceneEntryT.TypeName == "SubScene")
                     {
-                        var subscene = Deserelize_SceneEntryT(entry);
+                        var subscene = Deserelize_SceneEntryT(entry.SceneEntryT);
                         if(subscene is SubSceneT)
                         {
                             SceneFile? sf = Filemanager.OpenFile(((SubSceneT)subscene).FilePath, OpenScene);
@@ -167,9 +167,9 @@ namespace TrinitySceneEditor
         {
             if (sceneView.SelectedNode != null && OpenScene != null)
             {
-                if (sceneView.SelectedNode.Tag is SceneEntryT entry)
+                if (sceneView.SelectedNode.Tag is EntryFileMapping entry)
                 {
-                    Type? type = Type.GetType($"Titan.TrinityScene.{entry.TypeName}T");
+                    Type? type = Type.GetType($"Titan.TrinityScene.{entry.SceneEntryT.TypeName}T");
                     if (type != null)
                     {
                         MethodInfo? Serialize = type.GetMethod("SerializeToBinary", BindingFlags.Instance | BindingFlags.Public);
@@ -178,8 +178,11 @@ namespace TrinitySceneEditor
                             var output = Serialize.Invoke(propertyGrid1.SelectedObject, null);
                             if (output is byte[] data)
                             {
-                                entry.NestedType = data.ToList();
-                                OpenScene.isChanged = true;
+                                if (!entry.SceneEntryT.NestedType.ToArray().SequenceEqual(data))
+                                {
+                                    entry.SceneEntryT.NestedType = data.ToList();
+                                    entry.SceneFile.isChanged = true;
+                                }
                             }
                         }
                     }
@@ -203,10 +206,10 @@ namespace TrinitySceneEditor
 
         private static TreeNode? Search_SceneEntry(TreeNode start, object search_value)
         {
-            if (start.Tag is SceneEntryT ent)
+            if (start.Tag is EntryFileMapping ent)
             {
-                var etrie = Deserelize_SceneEntryT(ent);
-                Type? type = Type.GetType($"Titan.TrinityScene.{ent.TypeName}T");
+                var etrie = Deserelize_SceneEntryT(ent.SceneEntryT);
+                Type? type = Type.GetType($"Titan.TrinityScene.{ent.SceneEntryT.TypeName}T");
                 if (type != null)
                 {
                     PropertyInfo[] properties = type.GetProperties();

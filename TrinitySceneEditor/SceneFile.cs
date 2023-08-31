@@ -45,7 +45,7 @@ namespace TrinitySceneEditor
             foreach (var ent in ents)
             {
                 TreeNode newnode = node.Nodes.Add(ent.TypeName);
-                newnode.Tag = ent;
+                newnode.Tag = new EntryFileMapping(this,ent);
                 if(ent.TypeName == "SubScene" && Startup.Settings.Load_Scenes_Recursive)
                 {
                     SubSceneT ss = SubSceneT.DeserializeFromBinary(ent.NestedType.ToArray());
