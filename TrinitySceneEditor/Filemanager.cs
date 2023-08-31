@@ -15,7 +15,7 @@ namespace TrinitySceneEditor
 
             if(result != null) return result;
 
-            if(RomFS != null)
+            if(RomFS != null && Startup.Settings.Mode == Mode.RomFS)
             {
                 byte[] f = RomFS.GetFile(path);
                 if (f == null || f.Length == 0) return null;
