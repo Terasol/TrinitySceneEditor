@@ -119,20 +119,27 @@ namespace TrinitySceneEditor
             }
         }
 
-        private void TreeView_DoubleClick(object sender, EventArgs e)
+        private void OpenSelectedFile(object sender, EventArgs e)
         {
             if (treeView1.SelectedNode != null)
             {
                 if (treeView1.SelectedNode.Tag != null)
                 {
+                    if(Startup.Settings.Mode == Mode.RomFS && Startup.Settings.Load_Scenes_Recursive)
+                    {
+                        if(MessageBox.Show("You are opening a file from RomFS with recursive loading enabled.\r\nThis may take a while to load. Do you want to Continue?","Load Time Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.No)
+                        {
+                            return;
+                        }
+                    }
                     string p = (string)treeView1.SelectedNode.Tag;
                     SceneFile? sf = Filemanager.OpenFile(p);
                     if (sf != null)
                     {
                         SceneEditor sv = new(sf);
-                        Hide();
                         sv.FormClosed += SceneEditor_FormClosed;
                         sv.Show();
+                        Hide();
                     }
                 }
             }

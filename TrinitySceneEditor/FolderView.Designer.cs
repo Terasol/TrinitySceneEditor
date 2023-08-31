@@ -63,7 +63,7 @@
             treeView1.Name = "treeView1";
             treeView1.Size = new Size(474, 334);
             treeView1.TabIndex = 0;
-            treeView1.DoubleClick += TreeView_DoubleClick;
+            treeView1.DoubleClick += OpenSelectedFile;
             // 
             // tableLayoutPanel2
             // 
@@ -95,6 +95,7 @@
             Button_Open_File.TabIndex = 0;
             Button_Open_File.Text = "Open";
             Button_Open_File.UseVisualStyleBackColor = true;
+            Button_Open_File.Click += OpenSelectedFile;
             // 
             // Button_Revert_File_Changes
             // 
