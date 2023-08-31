@@ -46,6 +46,15 @@ namespace TrinitySceneEditor
             {
                 TreeNode newnode = node.Nodes.Add(ent.TypeName);
                 newnode.Tag = ent;
+                if(ent.TypeName == "SubScene" && Startup.Settings.Load_Scenes_Recursive)
+                {
+                    SubSceneT ss = SubSceneT.DeserializeFromBinary(ent.NestedType.ToArray());
+                    SceneFile? sub = Filemanager.OpenFile(ss.FilePath, this);
+                    if(sub != null)
+                    {
+                        newnode.Nodes.Add(sub.GetRootTreeNode());
+                    }
+                }
                 if (ent.SubObjects.Count > 0)
                     LoadSubNodes(newnode, ent.SubObjects);
             }

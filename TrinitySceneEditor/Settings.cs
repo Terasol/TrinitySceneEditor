@@ -7,11 +7,13 @@ namespace TrinitySceneEditor
         public string last_opened_folder { get; set; }
         public string last_opened_RomFS { get; set; }
         public Mode Mode { get; set; }
+        public bool Load_Scenes_Recursive { get; set; }
         public Settings() 
         {
             last_opened_file = string.Empty;
             last_opened_folder = string.Empty;
             last_opened_RomFS = string.Empty;
+            Load_Scenes_Recursive = false;
         }
     }
     public enum Mode
