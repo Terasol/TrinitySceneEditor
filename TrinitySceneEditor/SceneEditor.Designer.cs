@@ -73,7 +73,7 @@
             // 
             // saveTRSOT
             // 
-            saveTRSOT.Enabled = false;
+            saveTRSOT.Visible = false;
             saveTRSOT.Name = "saveTRSOT";
             saveTRSOT.Size = new Size(180, 22);
             saveTRSOT.Text = "Save Scene Object";

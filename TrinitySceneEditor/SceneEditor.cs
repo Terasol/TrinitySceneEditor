@@ -10,18 +10,20 @@ namespace TrinitySceneEditor
     {
         SceneFile? OpenScene;
 
-        ToolStripButton _propertyGridSaveButton;
-        ToolStripButton _propertyGridOpenSubSceneButton;
+        readonly ToolStripButton _propertyGridSaveButton;
+        readonly ToolStripButton _propertyGridOpenSubSceneButton;
 
         public SceneEditor(string Filepath) :this()
         {
-            Open_File(Filepath);
+            SceneFile? sf = Filemanager.OpenFile(Filepath);
+            if (sf != null)
+            {
+                Open_File(sf);
+            }
         }
         public SceneEditor(SceneFile SceneFile) :this()
         {
-            OpenScene = SceneFile;
-            sceneView.Nodes.Add(OpenScene.GetRootTreeNode());
-            saveTRSOT.Enabled = true;
+            Open_File(SceneFile);
         }
 
         public SceneEditor()
@@ -45,13 +47,15 @@ namespace TrinitySceneEditor
             }
         }
 
-        private void Open_File(string Filepath)
+        private void Open_File(SceneFile SceneFile)
         {
-            OpenScene = Filemanager.OpenFile(Filepath);
+            OpenScene = SceneFile;
             if (OpenScene != null)
             {
+                sceneView.Nodes.Clear();
                 sceneView.Nodes.Add(OpenScene.GetRootTreeNode());
-                saveTRSOT.Enabled = true;
+                if(Startup.Settings.Mode == Mode.Single_File)
+                    saveTRSOT.Visible = true;
             }
         }
 
@@ -60,15 +64,20 @@ namespace TrinitySceneEditor
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() != DialogResult.OK) return;
             sceneView.Nodes.Clear();
-            Open_File(ofd.FileName);
+            SceneFile? sf = Filemanager.OpenFile(ofd.FileName);
+            if (sf != null)
+            {
+                Open_File(sf);
+            }
         }
 
         private void closeTRSOT_Click(object sender, EventArgs e)
         {
-            OpenScene = null;
-            saveTRSOT.Enabled = false;
-            _propertyGridSaveButton.Visible = false;
-            sceneView.Nodes.Clear();
+            if (Startup.Settings.Mode == Mode.Single_File && OpenScene != null)
+            {
+                Filemanager.CloseFile(OpenScene);
+            }
+            Close();
         }
 
         private void saveTRSOT_Click(object sender, EventArgs e)
