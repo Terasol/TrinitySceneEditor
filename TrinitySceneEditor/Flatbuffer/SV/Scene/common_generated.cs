@@ -5,6 +5,9 @@
 using global::System;
 using global::System.Collections.Generic;
 using global::Google.FlatBuffers;
+using System.ComponentModel;
+using System.Drawing.Design;
+using TrinitySceneEditor.CustomEditor;
 
 public struct Vec3f : IFlatbufferObject
 {
@@ -44,7 +47,7 @@ public struct Vec3f : IFlatbufferObject
   }
 }
 
-public class Vec3fT
+public partial class Vec3fT
 {
   public float X { get; set; }
   public float Y { get; set; }
@@ -156,7 +159,7 @@ public struct SRT : IFlatbufferObject
   }
 }
 
-public class SRTT
+public partial class SRTT
 {
   public Vec3fT Scale { get; set; }
   public Vec3fT Rotation { get; set; }
