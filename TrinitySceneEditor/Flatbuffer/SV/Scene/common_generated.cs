@@ -5,9 +5,6 @@
 using global::System;
 using global::System.Collections.Generic;
 using global::Google.FlatBuffers;
-using System.ComponentModel;
-using System.Drawing.Design;
-using TrinitySceneEditor.CustomEditor;
 
 public struct Vec3f : IFlatbufferObject
 {
