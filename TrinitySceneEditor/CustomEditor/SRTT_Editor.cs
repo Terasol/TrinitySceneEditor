@@ -9,7 +9,7 @@ public partial class SRTT
 {
     public override string ToString()
     {
-        return $"S: {Scale}; R: {Rotation}; T:{Translation}" ;
+        return $"S: {{{Scale}}}; R: {{{Rotation}}}; T:{{{Translation}}}" ;
     }
 }
 
