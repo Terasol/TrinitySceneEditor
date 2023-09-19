@@ -56,7 +56,7 @@ public struct unknown_sceneObject_data : IFlatbufferObject
   }
 }
 
-public class unknown_sceneObject_dataT
+public partial class unknown_sceneObject_dataT
 {
   public Vec3fT Unk1 { get; set; }
   public float Unk2 { get; set; }
