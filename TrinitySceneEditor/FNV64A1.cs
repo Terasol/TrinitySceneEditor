@@ -4,7 +4,8 @@ namespace TrinitySceneEditor
 {
     public class FNV64A1
     {
-        public static ulong Calculate(string text) {
+        public static ulong Calculate(string text)
+        {
             return Calculate(Encoding.Default.GetBytes(text));
         }
 

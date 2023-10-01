@@ -6,7 +6,7 @@ namespace TrinitySceneEditor
     {
         private static readonly List<SceneFile> Files = new();
 
-        public static int ChangedFiles => Files.Where(file=> file.isChanged).Count();
+        public static int ChangedFiles => Files.Where(file => file.isChanged).Count();
 
         public static RomFS? RomFS { get; internal set; }
 
@@ -14,20 +14,20 @@ namespace TrinitySceneEditor
         {
             var result = (from SceneFile file in Files where file.Filepath == path select file).FirstOrDefault();
 
-            if(result != null) return result;
+            if (result != null) return result;
 
-            if(RomFS != null && Startup.Settings.Mode == Mode.RomFS)
+            if (RomFS != null && Startup.Settings.Mode == Mode.RomFS)
             {
                 byte[] f = RomFS.GetFile(path);
                 if (f == null || f.Length == 0) return null;
-                SceneFile file = new(path,f);
+                SceneFile file = new(path, f);
                 Files.Add(file);
                 return file;
 
             }
             else if (File.Exists(path))
             {
-                SceneFile file = new (path);
+                SceneFile file = new(path);
                 Files.Add(file);
                 return file;
             }
@@ -45,7 +45,7 @@ namespace TrinitySceneEditor
             else
             {
                 string new_path = Path.GetFullPath(relative_path).Replace(Environment.CurrentDirectory, "");
-                new_path = new_path.Replace("\\","/");
+                new_path = new_path.Replace("\\", "/");
                 if (new_path.StartsWith("/")) new_path = new_path.Remove(0, 1);
                 return OpenFile(new_path);
             }
@@ -55,7 +55,7 @@ namespace TrinitySceneEditor
         {
             Files.Remove(file);
         }
-        
+
         public static void CloseAllFiles()
         {
             Files.Clear();
@@ -68,13 +68,13 @@ namespace TrinitySceneEditor
 
         public static void SaveFile(SceneFile SceneFile, string SaveRoot = "", bool CloseFile = true)
         {
-            if(SaveRoot == "")
+            if (SaveRoot == "")
             {
                 SaveRoot = GetSavePath();
                 if (SaveRoot == "") return;
 
             }
-            string filepath ="";
+            string filepath = "";
             filepath = Path.Combine(SaveRoot, SceneFile.Relative);
             string? folder = Path.GetDirectoryName(filepath);
             if (!Path.Exists(folder) && folder != null)

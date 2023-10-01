@@ -16,7 +16,7 @@ namespace TrinitySceneEditor
                 treeView1.Nodes.Add($"Loading Files in {Startup.Settings.last_opened_folder}");
                 Folder_path = Startup.Settings.last_opened_folder;
             }
-            else if(Startup.Settings.Mode == Mode.RomFS)
+            else if (Startup.Settings.Mode == Mode.RomFS)
             {
                 treeView1.Nodes.Add($"Loading Files from RomFS");
                 Folder_path = Startup.Settings.last_opened_RomFS;
@@ -44,7 +44,7 @@ namespace TrinitySceneEditor
             {
                 Regex reg = Scene_File_Extensions();
 
-                string[] files = Directory.GetFiles(Folder_path, "*", new EnumerationOptions() {RecurseSubdirectories = true })
+                string[] files = Directory.GetFiles(Folder_path, "*", new EnumerationOptions() { RecurseSubdirectories = true })
                                      .Where(path => reg.IsMatch(path))
                                      .ToArray();
                 CreateNodes(files);
@@ -53,9 +53,9 @@ namespace TrinitySceneEditor
 
         }
 
-        private void AddPathToNodes(TreeNodeCollection nodes, string[] path,string full_Path)
+        private void AddPathToNodes(TreeNodeCollection nodes, string[] path, string full_Path)
         {
-            if(path.Length == 0) return;
+            if (path.Length == 0) return;
             int ind = nodes.IndexOfKey(path[0]);
             TreeNode? current_node;
             if (ind == -1)
@@ -94,10 +94,10 @@ namespace TrinitySceneEditor
                 if (Startup.Settings.Mode == Mode.Folder)
                 {
                     short_path = full_path.Replace(Folder_path, "");
-                    if (short_path.StartsWith("\\")) short_path = short_path.Remove(0,1);
+                    if (short_path.StartsWith("\\")) short_path = short_path.Remove(0, 1);
                     path = short_path.Split("\\");
                 }
-                else if(Startup.Settings.Mode == Mode.RomFS) path = short_path.Split("/");
+                else if (Startup.Settings.Mode == Mode.RomFS) path = short_path.Split("/");
 
                 AddPathToNodes(root_tmp.Nodes, path, full_path);
             }
@@ -127,9 +127,9 @@ namespace TrinitySceneEditor
             {
                 if (treeView1.SelectedNode.Tag != null)
                 {
-                    if(Startup.Settings.Mode == Mode.RomFS && Startup.Settings.Load_Scenes_Recursive)
+                    if (Startup.Settings.Mode == Mode.RomFS && Startup.Settings.Load_Scenes_Recursive)
                     {
-                        if(MessageBox.Show("You are opening a file from RomFS with recursive loading enabled.\r\nThis may take a while to load. Do you want to Continue?","Load Time Warning",MessageBoxButtons.YesNo,MessageBoxIcon.Warning) == DialogResult.No)
+                        if (MessageBox.Show("You are opening a file from RomFS with recursive loading enabled.\r\nThis may take a while to load. Do you want to Continue?", "Load Time Warning", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.No)
                         {
                             return;
                         }
@@ -171,10 +171,10 @@ namespace TrinitySceneEditor
         private void SceneEditor_FormClosed(object? sender, FormClosedEventArgs e)
         {
             Show();
-            string[]changedfiles = Filemanager.GetFilePathsOfChangedFiles();
+            string[] changedfiles = Filemanager.GetFilePathsOfChangedFiles();
             foreach (string path in changedfiles)
             {
-                if(_SceneFileNodes.ContainsKey(path))
+                if (_SceneFileNodes.ContainsKey(path))
                 {
                     _SceneFileNodes[path].NodeFont = new Font(treeView1.Font, FontStyle.Bold);
                     _SceneFileNodes[path].Text = _SceneFileNodes[path].Text;
@@ -184,7 +184,7 @@ namespace TrinitySceneEditor
         }
 
 
-        [GeneratedRegex("(\\.trscn|\\.trsog)$",RegexOptions.IgnoreCase)]
+        [GeneratedRegex("(\\.trscn|\\.trsog)$", RegexOptions.IgnoreCase)]
         private static partial Regex Scene_File_Extensions();
 
         private void checkBox_load_Recursive_CheckedChanged(object sender, EventArgs e)

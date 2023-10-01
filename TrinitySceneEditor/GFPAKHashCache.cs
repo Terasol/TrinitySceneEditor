@@ -73,7 +73,8 @@ namespace TrinitySceneEditor
             }
         }
 
-        private static void TryAddHash(string str) {
+        private static void TryAddHash(string str)
+        {
             ulong hash = FNV64A1.Calculate(str);
             if (!HashCacheContent.ContainsKey(hash))
                 HashCacheContent.Add(hash, str);
@@ -99,7 +100,7 @@ namespace TrinitySceneEditor
 
         public static void PutHash(string Name)
         {
-            PutHash(FNV64A1.Calculate(Name), Name);       
+            PutHash(FNV64A1.Calculate(Name), Name);
         }
 
         public static void PutHash(ulong Hash, string Name)

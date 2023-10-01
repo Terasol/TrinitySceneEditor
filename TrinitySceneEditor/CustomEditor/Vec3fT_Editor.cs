@@ -9,7 +9,7 @@ public partial class Vec3fT
 {
     public override string ToString()
     {
-        return $"X: {X}; Y: {Y}; Z:{Z}" ;
+        return $"X: {X}; Y: {Y}; Z:{Z}";
     }
 }
 

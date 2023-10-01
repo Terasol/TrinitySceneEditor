@@ -42,7 +42,7 @@ namespace TrinitySceneEditor
             {
                 WriteIndented = true
             };
-            string json = JsonSerializer.Serialize(Settings,options);
+            string json = JsonSerializer.Serialize(Settings, options);
             File.WriteAllText("settings.json", json);
         }
 
@@ -148,7 +148,7 @@ namespace TrinitySceneEditor
             }
 
         }
-        
+
         private void TextBox1_TextChanged(object? sender, EventArgs e)
         {
             UpdateSettings();
@@ -222,7 +222,7 @@ namespace TrinitySceneEditor
             GFPAKHashCache.WriteCache();
             ProcessSettings();
         }
-        
+
 
         private void Button_load_Click(object sender, EventArgs e)
         {
@@ -234,7 +234,7 @@ namespace TrinitySceneEditor
                     break;
                 case Mode.Folder:
                     FolderView fvf = new();
-                    fvf.FormClosed += (object? sender, FormClosedEventArgs e) =>{ Show(); };
+                    fvf.FormClosed += (object? sender, FormClosedEventArgs e) => { Show(); };
                     Hide();
                     fvf.Show();
                     break;

@@ -13,7 +13,7 @@ namespace TrinitySceneEditor
         readonly ToolStripButton _propertyGridSaveButton;
         readonly ToolStripButton _propertyGridOpenSubSceneButton;
 
-        public SceneEditor(string Filepath) :this()
+        public SceneEditor(string Filepath) : this()
         {
             SceneFile? sf = Filemanager.OpenFile(Filepath);
             if (sf != null)
@@ -21,7 +21,7 @@ namespace TrinitySceneEditor
                 Open_File(sf);
             }
         }
-        public SceneEditor(SceneFile SceneFile) :this()
+        public SceneEditor(SceneFile SceneFile) : this()
         {
             Open_File(SceneFile);
         }
@@ -54,7 +54,7 @@ namespace TrinitySceneEditor
             {
                 sceneView.Nodes.Clear();
                 sceneView.Nodes.Add(OpenScene.GetRootTreeNode());
-                if(Startup.Settings.Mode == Mode.Single_File)
+                if (Startup.Settings.Mode == Mode.Single_File)
                     saveTRSOT.Visible = true;
             }
         }
@@ -143,14 +143,14 @@ namespace TrinitySceneEditor
 
         private void PropertyGrid_Butto_OpenSubScene_Click(object? sender, EventArgs e)
         {
-            if(sceneView.SelectedNode.Tag is EntryFileMapping entry)
+            if (sceneView.SelectedNode.Tag is EntryFileMapping entry)
             {
-                if(entry != null && OpenScene != null)
+                if (entry != null && OpenScene != null)
                 {
-                    if(entry.SceneEntryT.TypeName == "SubScene")
+                    if (entry.SceneEntryT.TypeName == "SubScene")
                     {
                         var subscene = Deserelize_SceneEntryT(entry.SceneEntryT);
-                        if(subscene is SubSceneT)
+                        if (subscene is SubSceneT)
                         {
                             SceneFile? sf = Filemanager.OpenFile(((SubSceneT)subscene).FilePath, OpenScene);
                             if (sf != null)

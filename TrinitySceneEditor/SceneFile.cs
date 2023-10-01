@@ -52,12 +52,12 @@ namespace TrinitySceneEditor
             foreach (var ent in ents)
             {
                 TreeNode newnode = node.Nodes.Add(ent.TypeName);
-                newnode.Tag = new EntryFileMapping(this,ent);
-                if(ent.TypeName == "SubScene" && Startup.Settings.Load_Scenes_Recursive && Startup.Settings.Mode != Mode.Single_File)
+                newnode.Tag = new EntryFileMapping(this, ent);
+                if (ent.TypeName == "SubScene" && Startup.Settings.Load_Scenes_Recursive && Startup.Settings.Mode != Mode.Single_File)
                 {
                     SubSceneT ss = SubSceneT.DeserializeFromBinary(ent.NestedType.ToArray());
                     SceneFile? sub = Filemanager.OpenFile(ss.FilePath, this);
-                    if(sub != null)
+                    if (sub != null)
                     {
                         newnode.Nodes.Add(sub.GetRootTreeNode());
                     }

@@ -67,7 +67,7 @@ namespace TrinitySceneEditor
             foreach (ulong hash in TRPFDT.FileHashes)
             {
                 string path = GFPAKHashCache.GetHashName(hash);
-                if(path != null)
+                if (path != null)
                 {
                     if (regex.IsMatch(path))
                     {
@@ -95,9 +95,9 @@ namespace TrinitySceneEditor
 
         private byte[] GetFile(ulong FileHash, string FilePath)
         {
-            if(TRPFDT == null) return Array.Empty<byte>();
-            if(TRPFST == null) return Array.Empty<byte>();
-            if(fs == null) return Array.Empty<byte>();
+            if (TRPFDT == null) return Array.Empty<byte>();
+            if (TRPFST == null) return Array.Empty<byte>();
+            if (fs == null) return Array.Empty<byte>();
             int index = TRPFDT.FileHashes.IndexOf(FileHash);
             if (index != -1)
             {

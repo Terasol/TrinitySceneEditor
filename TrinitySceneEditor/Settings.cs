@@ -9,7 +9,7 @@ namespace TrinitySceneEditor
         public string last_save_Folder { get; set; }
         public Mode Mode { get; set; }
         public bool Load_Scenes_Recursive { get; set; }
-        public Settings() 
+        public Settings()
         {
             last_opened_file = string.Empty;
             last_opened_folder = string.Empty;
