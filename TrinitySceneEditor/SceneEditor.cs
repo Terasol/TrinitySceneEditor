@@ -84,16 +84,7 @@ namespace TrinitySceneEditor
         {
             if (OpenScene != null)
             {
-                var sfd = new SaveFileDialog
-                {
-                    AddExtension = true,
-                    DefaultExt = "trscn",
-                    Filter = "Trinity Scene (*.trscn;*.trsog)|*.trscn;*.trsog",
-                    OverwritePrompt = true
-                };
-                if (sfd.ShowDialog() != DialogResult.OK) return;
-
-                File.WriteAllBytes(sfd.FileName, OpenScene.SceneData.SerializeToBinary());
+                Filemanager.SaveFile(OpenScene, CloseFile: false);
             }
         }
 

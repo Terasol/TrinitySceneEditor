@@ -10,6 +10,7 @@ namespace TrinitySceneEditor
         public FolderView()
         {
             InitializeComponent();
+            checkBox_load_Recursive.Checked = Startup.Settings.Load_Scenes_Recursive;
             if (Startup.Settings.Mode == Mode.Folder)
             {
                 treeView1.Nodes.Add($"Loading Files in {Startup.Settings.last_opened_folder}");
@@ -185,5 +186,25 @@ namespace TrinitySceneEditor
 
         [GeneratedRegex("(\\.trscn|\\.trsog)$",RegexOptions.IgnoreCase)]
         private static partial Regex Scene_File_Extensions();
+
+        private void checkBox_load_Recursive_CheckedChanged(object sender, EventArgs e)
+        {
+            Startup.Settings.Load_Scenes_Recursive = checkBox_load_Recursive.Checked;
+        }
+
+        private void Button_Save_Changed_Files_Click(object sender, EventArgs e)
+        {
+            string[] changedfiles = Filemanager.GetFilePathsOfChangedFiles();
+            Filemanager.SaveAllOpenFiles();
+            foreach (string path in changedfiles)
+            {
+                if (_SceneFileNodes.ContainsKey(path))
+                {
+                    _SceneFileNodes[path].NodeFont = new Font(treeView1.Font, FontStyle.Regular);
+                    _SceneFileNodes[path].Text = _SceneFileNodes[path].Text;
+
+                }
+            }
+        }
     }
 }

@@ -31,9 +31,10 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             treeView1 = new TreeView();
             tableLayoutPanel2 = new TableLayoutPanel();
-            Button_Open_File = new Button();
-            Button_Revert_File_Changes = new Button();
             Button_Save_Changed_Files = new Button();
+            Button_Revert_File_Changes = new Button();
+            Button_Open_File = new Button();
+            checkBox_load_Recursive = new CheckBox();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
@@ -69,26 +70,47 @@
             // 
             tableLayoutPanel2.ColumnCount = 1;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Controls.Add(Button_Open_File, 0, 1);
-            tableLayoutPanel2.Controls.Add(Button_Revert_File_Changes, 0, 2);
-            tableLayoutPanel2.Controls.Add(Button_Save_Changed_Files, 0, 3);
+            tableLayoutPanel2.Controls.Add(Button_Save_Changed_Files, 0, 4);
+            tableLayoutPanel2.Controls.Add(Button_Revert_File_Changes, 0, 3);
+            tableLayoutPanel2.Controls.Add(Button_Open_File, 0, 2);
+            tableLayoutPanel2.Controls.Add(checkBox_load_Recursive, 0, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(483, 2);
             tableLayoutPanel2.Margin = new Padding(3, 2, 3, 2);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 6;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333435F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 36.363636F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.33333F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 63.636364F));
             tableLayoutPanel2.Size = new Size(214, 334);
             tableLayoutPanel2.TabIndex = 1;
             // 
+            // Button_Save_Changed_Files
+            // 
+            Button_Save_Changed_Files.Location = new Point(3, 164);
+            Button_Save_Changed_Files.Name = "Button_Save_Changed_Files";
+            Button_Save_Changed_Files.Size = new Size(125, 23);
+            Button_Save_Changed_Files.TabIndex = 2;
+            Button_Save_Changed_Files.Text = "Saved Changed Files";
+            Button_Save_Changed_Files.UseVisualStyleBackColor = true;
+            Button_Save_Changed_Files.Click += Button_Save_Changed_Files_Click;
+            // 
+            // Button_Revert_File_Changes
+            // 
+            Button_Revert_File_Changes.Location = new Point(3, 135);
+            Button_Revert_File_Changes.Name = "Button_Revert_File_Changes";
+            Button_Revert_File_Changes.Size = new Size(82, 23);
+            Button_Revert_File_Changes.TabIndex = 1;
+            Button_Revert_File_Changes.Text = "Revert";
+            Button_Revert_File_Changes.UseVisualStyleBackColor = true;
+            Button_Revert_File_Changes.Click += Button_Revert_File_Changes_Click;
+            // 
             // Button_Open_File
             // 
-            Button_Open_File.Location = new Point(3, 85);
+            Button_Open_File.Location = new Point(3, 108);
             Button_Open_File.Margin = new Padding(3, 2, 3, 2);
             Button_Open_File.Name = "Button_Open_File";
             Button_Open_File.Size = new Size(82, 22);
@@ -97,24 +119,16 @@
             Button_Open_File.UseVisualStyleBackColor = true;
             Button_Open_File.Click += OpenSelectedFile;
             // 
-            // Button_Revert_File_Changes
+            // checkBox_load_Recursive
             // 
-            Button_Revert_File_Changes.Location = new Point(3, 112);
-            Button_Revert_File_Changes.Name = "Button_Revert_File_Changes";
-            Button_Revert_File_Changes.Size = new Size(82, 23);
-            Button_Revert_File_Changes.TabIndex = 1;
-            Button_Revert_File_Changes.Text = "Revert";
-            Button_Revert_File_Changes.UseVisualStyleBackColor = true;
-            Button_Revert_File_Changes.Click += Button_Revert_File_Changes_Click;
-            // 
-            // Button_Save_Changed_Files
-            // 
-            Button_Save_Changed_Files.Location = new Point(3, 141);
-            Button_Save_Changed_Files.Name = "Button_Save_Changed_Files";
-            Button_Save_Changed_Files.Size = new Size(125, 23);
-            Button_Save_Changed_Files.TabIndex = 2;
-            Button_Save_Changed_Files.Text = "Saved Changed Files";
-            Button_Save_Changed_Files.UseVisualStyleBackColor = true;
+            checkBox_load_Recursive.AutoSize = true;
+            checkBox_load_Recursive.Location = new Point(3, 84);
+            checkBox_load_Recursive.Name = "checkBox_load_Recursive";
+            checkBox_load_Recursive.Size = new Size(116, 19);
+            checkBox_load_Recursive.TabIndex = 3;
+            checkBox_load_Recursive.Text = "Load SubScenes?";
+            checkBox_load_Recursive.UseVisualStyleBackColor = true;
+            checkBox_load_Recursive.CheckedChanged += checkBox_load_Recursive_CheckedChanged;
             // 
             // FolderView
             // 
@@ -127,6 +141,7 @@
             Text = "FolderView";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel2.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -138,5 +153,6 @@
         private Button Button_Open_File;
         private Button Button_Revert_File_Changes;
         private Button Button_Save_Changed_Files;
+        private CheckBox checkBox_load_Recursive;
     }
 }

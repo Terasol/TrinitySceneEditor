@@ -36,7 +36,7 @@ namespace TrinitySceneEditor
             SaveSettingsToFile();
         }
 
-        private void SaveSettingsToFile()
+        public static void SaveSettingsToFile()
         {
             JsonSerializerOptions options = new()
             {

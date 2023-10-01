@@ -1,4 +1,6 @@
-﻿namespace TrinitySceneEditor
+﻿using System.Windows.Forms;
+
+namespace TrinitySceneEditor
 {
     static class Filemanager
     {
@@ -62,6 +64,57 @@
         public static string[] GetFilePathsOfChangedFiles()
         {
             return Files.Where(file => file.isChanged).Select(file => file.Filepath).ToArray();
+        }
+
+        public static void SaveFile(SceneFile SceneFile, string SaveRoot = "", bool CloseFile = true)
+        {
+            if(SaveRoot == "")
+            {
+                SaveRoot = GetSavePath();
+                if (SaveRoot == "") return;
+
+            }
+            string filepath ="";
+            filepath = Path.Combine(SaveRoot, SceneFile.Relative);
+            string? folder = Path.GetDirectoryName(filepath);
+            if (!Path.Exists(folder) && folder != null)
+            {
+                Directory.CreateDirectory(folder);
+            }
+            File.WriteAllBytes(filepath, SceneFile.SceneData.SerializeToBinary());
+
+            if (CloseFile)
+                Files.Remove(SceneFile);
+        }
+
+        private static string GetSavePath()
+        {
+            FolderBrowserDialog dialog = new()
+            {
+                UseDescriptionForTitle = true,
+                Description = "Select the Folder to Save the Files to"
+            };
+            if (Path.Exists(Startup.Settings.last_save_Folder))
+                dialog.SelectedPath = Startup.Settings.last_save_Folder;
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Startup.Settings.last_save_Folder = dialog.SelectedPath;
+                return dialog.SelectedPath;
+            }
+            else return "";
+        }
+
+        public static void SaveAllOpenFiles(bool CloseFile = true)
+        {
+            string SaveRoot = GetSavePath();
+            if (SaveRoot != "")
+            {
+                SceneFile[] f = Files.Where(file => file.isChanged).ToArray();
+                foreach (SceneFile file in f)
+                {
+                    SaveFile(file, SaveRoot, CloseFile);
+                }
+            }
         }
     }
 }
