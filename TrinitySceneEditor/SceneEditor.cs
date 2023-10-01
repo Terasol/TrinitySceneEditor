@@ -1,7 +1,4 @@
-﻿
-using System.IO;
-using System.Reflection;
-using System.Security.Cryptography;
+﻿using System.Reflection;
 using Titan.TrinityScene;
 
 namespace TrinitySceneEditor

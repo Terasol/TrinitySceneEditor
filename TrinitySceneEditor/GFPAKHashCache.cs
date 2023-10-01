@@ -3,7 +3,7 @@ namespace TrinitySceneEditor
 {
     public class GFPAKHashCache
     {
-        private static Dictionary<ulong, string> HashCacheContent = new Dictionary<ulong, string>();
+        private static Dictionary<ulong, string> HashCacheContent = new();
 
         private static ulong CurrentVersionHash;
         private static readonly string HashBinaryPath = "GFPAKHashCache.bin";
@@ -13,7 +13,7 @@ namespace TrinitySceneEditor
             HashCacheContent = new Dictionary<ulong, string>();
             if (File.Exists(HashBinaryPath))
             {
-                using (BinaryReader Reader = new BinaryReader(new FileStream(HashBinaryPath, FileMode.Open)))
+                using (BinaryReader Reader = new(new FileStream(HashBinaryPath, FileMode.Open)))
                 {
                     ulong CacheVersionHash = Reader.ReadUInt64();
                     uint Count = Reader.ReadUInt32();
@@ -31,7 +31,7 @@ namespace TrinitySceneEditor
             HashCacheContent = new Dictionary<ulong, string>();
             if (File.Exists("hashes_inside_fd.txt"))
             {
-                using (StreamReader streamReader = new StreamReader("hashes_inside_fd.txt"))
+                using (StreamReader streamReader = new("hashes_inside_fd.txt"))
                 {
                     string line;
                     while ((line = streamReader.ReadLine()) != null)
@@ -61,7 +61,7 @@ namespace TrinitySceneEditor
 
         public static void WriteCache()
         {
-            using (BinaryWriter writer = new BinaryWriter(new FileStream(HashBinaryPath, FileMode.OpenOrCreate, FileAccess.Write)))
+            using (BinaryWriter writer = new(new FileStream(HashBinaryPath, FileMode.OpenOrCreate, FileAccess.Write)))
             {
                 writer.Write(CurrentVersionHash);
                 writer.Write(HashCacheContent.Count);

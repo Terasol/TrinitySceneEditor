@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Design;
-using System.Windows.Forms.Design;
 using TrinitySceneEditor.CustomEditor;
 
 [Editor(typeof(SRTT_Editor), typeof(UITypeEditor))]

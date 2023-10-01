@@ -1,6 +1,4 @@
 ﻿using System.Text.Json;
-using System.Xml.Linq;
-using Titan.FileSystem;
 
 namespace TrinitySceneEditor
 {
