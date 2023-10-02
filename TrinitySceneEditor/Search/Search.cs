@@ -2,9 +2,9 @@
 
 namespace TrinitySceneEditor.Search
 {
-    internal class Search
+    internal static class Search
     {
-        private static SearchData? Find_first_appearence(TreeNode start, object search_value)
+        internal static SearchData? Find_first_appearence(TreeNode start, object search_value)
         {
             SearchData? tn = Search_SceneEntry(start, search_value);
             if (tn != null) return tn;
@@ -18,7 +18,7 @@ namespace TrinitySceneEditor.Search
             }
             return null;
         }
-        private static SearchData[] Find_all_appearences(TreeNode start, object search_value)
+        internal static SearchData[] Find_all_appearences(TreeNode start, object search_value)
         {
             List<SearchData> found = new();
             SearchData? tn = Search_SceneEntry(start, search_value);
@@ -34,7 +34,7 @@ namespace TrinitySceneEditor.Search
             return found.ToArray();
         }
 
-        private static SearchData? Search_SceneEntry(TreeNode node, object search_value)
+        internal static SearchData? Search_SceneEntry(TreeNode node, object search_value)
         {
             if (node.Tag is EntryFileMapping ent)
             {
