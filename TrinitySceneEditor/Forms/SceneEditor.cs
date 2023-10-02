@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using Titan.TrinityScene;
 
-namespace TrinitySceneEditor
+namespace TrinitySceneEditor.Forms
 {
     public partial class SceneEditor : Form
     {

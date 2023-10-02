@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace TrinitySceneEditor
+namespace TrinitySceneEditor.Forms
 {
     public partial class Startup : Form
     {

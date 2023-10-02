@@ -1,4 +1,5 @@
 ﻿using Titan.TrinityScene;
+using TrinitySceneEditor.Forms;
 
 namespace TrinitySceneEditor
 {

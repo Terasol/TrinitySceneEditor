@@ -1,3 +1,5 @@
+using TrinitySceneEditor.Forms;
+
 namespace TrinitySceneEditor
 {
     internal static class Program

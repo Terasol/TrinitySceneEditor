@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace TrinitySceneEditor
+namespace TrinitySceneEditor.Forms
 {
     public partial class FolderView : Form
     {

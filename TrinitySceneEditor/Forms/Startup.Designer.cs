@@ -1,4 +1,4 @@
-﻿namespace TrinitySceneEditor
+﻿namespace TrinitySceneEditor.Forms
 {
     partial class Startup
     {

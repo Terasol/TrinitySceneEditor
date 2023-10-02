@@ -1,4 +1,6 @@
-﻿namespace TrinitySceneEditor
+﻿using TrinitySceneEditor.Forms;
+
+namespace TrinitySceneEditor
 {
     static class Filemanager
     {
