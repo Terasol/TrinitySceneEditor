@@ -9,6 +9,7 @@ namespace TrinitySceneEditor.Forms
 
         readonly ToolStripButton _propertyGridSaveButton;
         readonly ToolStripButton _propertyGridOpenSubSceneButton;
+        Search? Search;
 
         public SceneEditor(string Filepath) : this()
         {
@@ -41,6 +42,19 @@ namespace TrinitySceneEditor.Forms
                     toolStrip.Items.Add(_propertyGridSaveButton);
                     toolStrip.Items.Add(_propertyGridOpenSubSceneButton);
                 }
+            }
+        }
+
+        public void SelectNode(TreeNode Node)
+        {
+            if (sceneView.InvokeRequired)
+            {
+                Action safeWrite = delegate { SelectNode(Node); };
+                sceneView.Invoke(safeWrite);
+            }
+            else
+            {
+                sceneView.SelectedNode = Node;
             }
         }
 
@@ -184,6 +198,27 @@ namespace TrinitySceneEditor.Forms
                         }
                     }
                 }
+            }
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (Search != null)
+            {
+                Search.Focus();
+            }
+            else
+            {
+                Search = new(sceneView.Nodes[0], this);
+                Search.Show();
+            }
+        }
+
+        private void SceneEditor_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (Search != null)
+            {
+                Search.Close();
             }
         }
     }

@@ -34,6 +34,8 @@
             openTRSOT = new ToolStripMenuItem();
             saveTRSOT = new ToolStripMenuItem();
             closeTRSOT = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
             sceneContext = new ContextMenuStrip(components);
             expandToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
@@ -49,7 +51,7 @@
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, toolStripMenuItem1 });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(542, 24);
@@ -66,25 +68,39 @@
             // openTRSOT
             // 
             openTRSOT.Name = "openTRSOT";
-            openTRSOT.Size = new Size(180, 22);
+            openTRSOT.Size = new Size(175, 22);
             openTRSOT.Text = "Open Scene Object";
             openTRSOT.Visible = false;
             openTRSOT.Click += openTRSOT_Click;
             // 
             // saveTRSOT
             // 
-            saveTRSOT.Visible = false;
             saveTRSOT.Name = "saveTRSOT";
-            saveTRSOT.Size = new Size(180, 22);
+            saveTRSOT.Size = new Size(175, 22);
             saveTRSOT.Text = "Save Scene Object";
+            saveTRSOT.Visible = false;
             saveTRSOT.Click += saveTRSOT_Click;
             // 
             // closeTRSOT
             // 
             closeTRSOT.Name = "closeTRSOT";
-            closeTRSOT.Size = new Size(180, 22);
+            closeTRSOT.Size = new Size(175, 22);
             closeTRSOT.Text = "Close Scene Object";
             closeTRSOT.Click += closeTRSOT_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2 });
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(54, 20);
+            toolStripMenuItem1.Text = "Search";
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(180, 22);
+            toolStripMenuItem2.Text = "open Search";
+            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
             // sceneContext
             // 
@@ -143,6 +159,7 @@
             MainMenuStrip = menuStrip1;
             Name = "SceneEditor";
             Text = "Trinity Scene Editor";
+            FormClosing += SceneEditor_FormClosing;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             sceneContext.ResumeLayout(false);
@@ -166,5 +183,7 @@
         private SplitContainer splitContainer1;
         private TreeView sceneView;
         private PropertyGrid propertyGrid1;
+        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem toolStripMenuItem2;
     }
 }

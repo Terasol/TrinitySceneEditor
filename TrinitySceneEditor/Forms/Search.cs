@@ -1,10 +1,47 @@
 ﻿using System.Reflection;
-using TrinitySceneEditor.Forms;
+using TrinitySceneEditor.Search;
 
-namespace TrinitySceneEditor.Search
+namespace TrinitySceneEditor.Forms
 {
-    internal static class Search
+    public partial class Search : Form
     {
+        TreeNode RootNode;
+        SearchData[] Found_Data = Array.Empty<SearchData>();
+        SceneEditor SceneEditor { get; set; }
+        public Search(TreeNode rootNode, SceneEditor sceneEditor)
+        {
+            InitializeComponent();
+            RootNode = rootNode;
+            SceneEditor = sceneEditor;
+        }
+
+        private void toolStripButton_Search_Click(object sender, EventArgs e)
+        {
+            if (toolStripTextBox_SearchValue.Text == "") return;
+            dataGridView1.Rows.Clear();
+            switch (toolStripComboBox_SearchType.SelectedIndex)
+            {
+                case 0://string
+                    Found_Data = Find_all_appearences(RootNode, toolStripTextBox_SearchValue.Text);
+                    break;
+                case 1://int
+                    if (int.TryParse(toolStripTextBox_SearchValue.Text, out int i))
+                        Found_Data = Find_all_appearences(RootNode, i);
+                    break;
+                case 2://float
+                    if (float.TryParse(toolStripTextBox_SearchValue.Text, out float f))
+                        Found_Data = Find_all_appearences(RootNode, f);
+                    break;
+                default:
+                    break;
+            }
+            if (Found_Data.Length == 0) return;
+            foreach (SearchData data in Found_Data)
+            {
+                _ = dataGridView1.Rows.Add(data.PropertyInfo.Name, data.FoundData, Path.GetFileName(data.EntryFileMapping.SceneFile.Filepath));
+            }
+        }
+
         internal static SearchData? Find_first_appearence(TreeNode start, object search_value)
         {
             SearchData? tn = Search_SceneEntry(start, search_value);
@@ -24,13 +61,10 @@ namespace TrinitySceneEditor.Search
             List<SearchData> found = new();
             SearchData? tn = Search_SceneEntry(start, search_value);
             if (tn != null) found.Add(tn);
-            else
+            foreach (TreeNode node in start.Nodes)
             {
-                foreach (TreeNode node in start.Nodes)
-                {
-                    SearchData[] tn_ch = Find_all_appearences(node, search_value);
-                    if (tn_ch != null) found.AddRange(tn_ch);
-                }
+                SearchData[] tn_ch = Find_all_appearences(node, search_value);
+                found.AddRange(tn_ch);
             }
             return found.ToArray();
         }
@@ -54,7 +88,7 @@ namespace TrinitySceneEditor.Search
 
                             if (value.Contains(search_value_string))
                             {
-                                return new(node, value);
+                                return new(node, value, property, ent);
                             }
                         }
                         else if (property.PropertyType == search_value.GetType() && search_value.GetType() == typeof(int))
@@ -65,7 +99,7 @@ namespace TrinitySceneEditor.Search
 
                             if (value == search_value_int)
                             {
-                                return new(node, value);
+                                return new(node, value, property, ent);
                             }
                         }
                         else if (property.PropertyType == search_value.GetType() && search_value.GetType() == typeof(float))
@@ -76,13 +110,18 @@ namespace TrinitySceneEditor.Search
 
                             if (value == search_value_float)
                             {
-                                return new(node, value);
+                                return new(node, value, property, ent);
                             }
                         }
                     }
                 }
             }
             return null;
+        }
+
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            SceneEditor.SelectNode(Found_Data[e.RowIndex].TreeNode);
         }
     }
 }
