@@ -116,6 +116,7 @@ namespace TrinitySceneEditor.Forms
 
         private void sceneView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+
             if (sceneView.SelectedNode.Tag is EntryFileMapping entry)
             {
                 propertyGrid1.SelectedObject = Deserelize_SceneEntryT(entry.SceneEntryT);
@@ -124,6 +125,11 @@ namespace TrinitySceneEditor.Forms
                     _propertyGridOpenSubSceneButton.Visible = true;
                 else
                     _propertyGridOpenSubSceneButton.Visible = false;
+                if (propertyGrid1.SelectedObject is trinity_ObjectTemplateT ot)
+                {
+                    propertyGrid1.SelectedObject = trinity_SceneObjectT.DeserializeFromBinary(ot.ObjectBytes.ToArray());
+                    _propertyGridSaveButton.Visible = false;
+                }
             }
             else if (sceneView.SelectedNode.Tag is trinity_SceneT)
             {
