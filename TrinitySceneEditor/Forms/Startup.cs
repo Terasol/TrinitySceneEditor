@@ -159,7 +159,7 @@ namespace TrinitySceneEditor.Forms
             {
                 case Mode.Single_File:
                     openFileDialog1.Title = "Select Trinity Scene File";
-                    openFileDialog1.Filter = "Trinity Scene (*.trscn;*.trsog)|*.trscn;*.trsog";
+                    openFileDialog1.Filter = "Trinity Scene (*.trscn;*.trsot)|*.trscn;*.trsot";
                     openFileDialog1.Multiselect = false; openFileDialog1.CheckFileExists = true;
                     if (openFileDialog1.ShowDialog() == DialogResult.OK)
                     {
