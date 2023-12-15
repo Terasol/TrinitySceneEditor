@@ -22,7 +22,7 @@ public struct ti_PokemonModelComponent : IFlatbufferObject
   public ushort NationalDexId { get { int o = __p.__offset(4); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)0; } }
   public ushort FormId { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetUshort(o + __p.bb_pos) : (ushort)0; } }
   public bool Res2 { get { int o = __p.__offset(8); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
-  public uint Res3 { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public bool Res3 { get { int o = __p.__offset(10); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
   public uint Res4 { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
   public float Res5 { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
   public uint Res6 { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
@@ -33,7 +33,7 @@ public struct ti_PokemonModelComponent : IFlatbufferObject
       ushort national_dex_id = 0,
       ushort form_id = 0,
       bool res_2 = false,
-      uint res_3 = 0,
+      bool res_3 = false,
       uint res_4 = 0,
       float res_5 = 0.0f,
       uint res_6 = 0,
@@ -44,10 +44,10 @@ public struct ti_PokemonModelComponent : IFlatbufferObject
     ti_PokemonModelComponent.AddRes6(builder, res_6);
     ti_PokemonModelComponent.AddRes5(builder, res_5);
     ti_PokemonModelComponent.AddRes4(builder, res_4);
-    ti_PokemonModelComponent.AddRes3(builder, res_3);
     ti_PokemonModelComponent.AddFormId(builder, form_id);
     ti_PokemonModelComponent.AddNationalDexId(builder, national_dex_id);
     ti_PokemonModelComponent.AddRes8(builder, res_8);
+    ti_PokemonModelComponent.AddRes3(builder, res_3);
     ti_PokemonModelComponent.AddRes2(builder, res_2);
     return ti_PokemonModelComponent.Endti_PokemonModelComponent(builder);
   }
@@ -56,7 +56,7 @@ public struct ti_PokemonModelComponent : IFlatbufferObject
   public static void AddNationalDexId(FlatBufferBuilder builder, ushort nationalDexId) { builder.AddUshort(0, nationalDexId, 0); }
   public static void AddFormId(FlatBufferBuilder builder, ushort formId) { builder.AddUshort(1, formId, 0); }
   public static void AddRes2(FlatBufferBuilder builder, bool res2) { builder.AddBool(2, res2, false); }
-  public static void AddRes3(FlatBufferBuilder builder, uint res3) { builder.AddUint(3, res3, 0); }
+  public static void AddRes3(FlatBufferBuilder builder, bool res3) { builder.AddBool(3, res3, false); }
   public static void AddRes4(FlatBufferBuilder builder, uint res4) { builder.AddUint(4, res4, 0); }
   public static void AddRes5(FlatBufferBuilder builder, float res5) { builder.AddFloat(5, res5, 0.0f); }
   public static void AddRes6(FlatBufferBuilder builder, uint res6) { builder.AddUint(6, res6, 0); }
@@ -105,7 +105,7 @@ public class ti_PokemonModelComponentT
   public ushort NationalDexId { get; set; }
   public ushort FormId { get; set; }
   public bool Res2 { get; set; }
-  public uint Res3 { get; set; }
+  public bool Res3 { get; set; }
   public uint Res4 { get; set; }
   public float Res5 { get; set; }
   public uint Res6 { get; set; }
@@ -116,7 +116,7 @@ public class ti_PokemonModelComponentT
     this.NationalDexId = 0;
     this.FormId = 0;
     this.Res2 = false;
-    this.Res3 = 0;
+    this.Res3 = false;
     this.Res4 = 0;
     this.Res5 = 0.0f;
     this.Res6 = 0;
