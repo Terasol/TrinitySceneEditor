@@ -91,9 +91,9 @@ namespace TrinitySceneEditor
 
         public static string GetHashName(ulong Hash)
         {
-            if (HashCacheContent.ContainsKey(Hash))
+            if (HashCacheContent.TryGetValue(Hash, out string? value))
             {
-                return HashCacheContent[Hash];
+                return value;
             }
             return string.Empty;
         }
