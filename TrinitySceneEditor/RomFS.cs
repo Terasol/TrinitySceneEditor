@@ -113,7 +113,6 @@ namespace TrinitySceneEditor
 
                 fs.Seek((long)offset, SeekOrigin.Begin);
                 fs.Read(data, 0, data.Length);
-                File.WriteAllBytes("dumb.trpak", data);
                 TRPAKT tr = TRPAKT.DeserializeFromBinary(data);
 
                 int tr_file_index = tr.FileHashes.IndexOf(FileHash);
