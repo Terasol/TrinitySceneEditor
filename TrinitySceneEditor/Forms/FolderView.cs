@@ -183,7 +183,7 @@ namespace TrinitySceneEditor.Forms
         }
 
 
-        [GeneratedRegex("(\\.trscn|\\.trsog)$", RegexOptions.IgnoreCase)]
+        [GeneratedRegex("(\\.trscn|\\.trsot|\\.trsog)$", RegexOptions.IgnoreCase)]
         private static partial Regex Scene_File_Extensions();
 
         private void checkBox_load_Recursive_CheckedChanged(object sender, EventArgs e)
