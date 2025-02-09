@@ -19,77 +19,81 @@ public struct pe_LightForWeather : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public pe_LightForWeather __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public string Unk0 { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string FilePath { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetUnk0Bytes() { return __p.__vector_as_span<byte>(4, 1); }
+  public Span<byte> GetFilePathBytes() { return __p.__vector_as_span<byte>(4, 1); }
 #else
-  public ArraySegment<byte>? GetUnk0Bytes() { return __p.__vector_as_arraysegment(4); }
+  public ArraySegment<byte>? GetFilePathBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
-  public byte[] GetUnk0Array() { return __p.__vector_as_array<byte>(4); }
-  public float Unk1 { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float Unk2 { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public uint Unk3 { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public string Unk4 { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetFilePathArray() { return __p.__vector_as_array<byte>(4); }
+  public float TimeSpan { get { int o = __p.__offset(6); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float CurrentTime { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public bool StartWithOffsetData { get { int o = __p.__offset(10); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public string OffsetDataName { get { int o = __p.__offset(12); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetUnk4Bytes() { return __p.__vector_as_span<byte>(12, 1); }
+  public Span<byte> GetOffsetDataNameBytes() { return __p.__vector_as_span<byte>(12, 1); }
 #else
-  public ArraySegment<byte>? GetUnk4Bytes() { return __p.__vector_as_arraysegment(12); }
+  public ArraySegment<byte>? GetOffsetDataNameBytes() { return __p.__vector_as_arraysegment(12); }
 #endif
-  public byte[] GetUnk4Array() { return __p.__vector_as_array<byte>(12); }
-  public uint Unk5 { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public uint Unk6 { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public string Unk7 { get { int o = __p.__offset(18); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetOffsetDataNameArray() { return __p.__vector_as_array<byte>(12); }
+  public uint OffsetBlendWeight { get { int o = __p.__offset(14); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public uint Priority { get { int o = __p.__offset(16); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public string AreaFilePath { get { int o = __p.__offset(18); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetUnk7Bytes() { return __p.__vector_as_span<byte>(18, 1); }
+  public Span<byte> GetAreaFilePathBytes() { return __p.__vector_as_span<byte>(18, 1); }
 #else
-  public ArraySegment<byte>? GetUnk7Bytes() { return __p.__vector_as_arraysegment(18); }
+  public ArraySegment<byte>? GetAreaFilePathBytes() { return __p.__vector_as_arraysegment(18); }
 #endif
-  public byte[] GetUnk7Array() { return __p.__vector_as_array<byte>(18); }
-  public uint Unk8 { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public string Unk9 { get { int o = __p.__offset(22); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetAreaFilePathArray() { return __p.__vector_as_array<byte>(18); }
+  public uint AreaTimeSpan { get { int o = __p.__offset(20); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public string OffsetFilePath { get { int o = __p.__offset(22); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetUnk9Bytes() { return __p.__vector_as_span<byte>(22, 1); }
+  public Span<byte> GetOffsetFilePathBytes() { return __p.__vector_as_span<byte>(22, 1); }
 #else
-  public ArraySegment<byte>? GetUnk9Bytes() { return __p.__vector_as_arraysegment(22); }
+  public ArraySegment<byte>? GetOffsetFilePathBytes() { return __p.__vector_as_arraysegment(22); }
 #endif
-  public byte[] GetUnk9Array() { return __p.__vector_as_array<byte>(22); }
+  public byte[] GetOffsetFilePathArray() { return __p.__vector_as_array<byte>(22); }
+  public uint OffsetTimeSpan { get { int o = __p.__offset(24); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
 
   public static Offset<Titan.TrinityScene.pe_LightForWeather> Createpe_LightForWeather(FlatBufferBuilder builder,
-      StringOffset unk_0Offset = default(StringOffset),
-      float unk_1 = 0.0f,
-      float unk_2 = 0.0f,
-      uint unk_3 = 0,
-      StringOffset unk_4Offset = default(StringOffset),
-      uint unk_5 = 0,
-      uint unk_6 = 0,
-      StringOffset unk_7Offset = default(StringOffset),
-      uint unk_8 = 0,
-      StringOffset unk_9Offset = default(StringOffset)) {
-    builder.StartTable(10);
-    pe_LightForWeather.AddUnk9(builder, unk_9Offset);
-    pe_LightForWeather.AddUnk8(builder, unk_8);
-    pe_LightForWeather.AddUnk7(builder, unk_7Offset);
-    pe_LightForWeather.AddUnk6(builder, unk_6);
-    pe_LightForWeather.AddUnk5(builder, unk_5);
-    pe_LightForWeather.AddUnk4(builder, unk_4Offset);
-    pe_LightForWeather.AddUnk3(builder, unk_3);
-    pe_LightForWeather.AddUnk2(builder, unk_2);
-    pe_LightForWeather.AddUnk1(builder, unk_1);
-    pe_LightForWeather.AddUnk0(builder, unk_0Offset);
+      StringOffset file_pathOffset = default(StringOffset),
+      float time_span = 0.0f,
+      float current_time = 0.0f,
+      bool start_with_offset_data = false,
+      StringOffset offset_data_nameOffset = default(StringOffset),
+      uint offset_blend_weight = 0,
+      uint priority = 0,
+      StringOffset area_file_pathOffset = default(StringOffset),
+      uint area_time_span = 0,
+      StringOffset offset_file_pathOffset = default(StringOffset),
+      uint offset_time_span = 0) {
+    builder.StartTable(11);
+    pe_LightForWeather.AddOffsetTimeSpan(builder, offset_time_span);
+    pe_LightForWeather.AddOffsetFilePath(builder, offset_file_pathOffset);
+    pe_LightForWeather.AddAreaTimeSpan(builder, area_time_span);
+    pe_LightForWeather.AddAreaFilePath(builder, area_file_pathOffset);
+    pe_LightForWeather.AddPriority(builder, priority);
+    pe_LightForWeather.AddOffsetBlendWeight(builder, offset_blend_weight);
+    pe_LightForWeather.AddOffsetDataName(builder, offset_data_nameOffset);
+    pe_LightForWeather.AddCurrentTime(builder, current_time);
+    pe_LightForWeather.AddTimeSpan(builder, time_span);
+    pe_LightForWeather.AddFilePath(builder, file_pathOffset);
+    pe_LightForWeather.AddStartWithOffsetData(builder, start_with_offset_data);
     return pe_LightForWeather.Endpe_LightForWeather(builder);
   }
 
-  public static void Startpe_LightForWeather(FlatBufferBuilder builder) { builder.StartTable(10); }
-  public static void AddUnk0(FlatBufferBuilder builder, StringOffset unk0Offset) { builder.AddOffset(0, unk0Offset.Value, 0); }
-  public static void AddUnk1(FlatBufferBuilder builder, float unk1) { builder.AddFloat(1, unk1, 0.0f); }
-  public static void AddUnk2(FlatBufferBuilder builder, float unk2) { builder.AddFloat(2, unk2, 0.0f); }
-  public static void AddUnk3(FlatBufferBuilder builder, uint unk3) { builder.AddUint(3, unk3, 0); }
-  public static void AddUnk4(FlatBufferBuilder builder, StringOffset unk4Offset) { builder.AddOffset(4, unk4Offset.Value, 0); }
-  public static void AddUnk5(FlatBufferBuilder builder, uint unk5) { builder.AddUint(5, unk5, 0); }
-  public static void AddUnk6(FlatBufferBuilder builder, uint unk6) { builder.AddUint(6, unk6, 0); }
-  public static void AddUnk7(FlatBufferBuilder builder, StringOffset unk7Offset) { builder.AddOffset(7, unk7Offset.Value, 0); }
-  public static void AddUnk8(FlatBufferBuilder builder, uint unk8) { builder.AddUint(8, unk8, 0); }
-  public static void AddUnk9(FlatBufferBuilder builder, StringOffset unk9Offset) { builder.AddOffset(9, unk9Offset.Value, 0); }
+  public static void Startpe_LightForWeather(FlatBufferBuilder builder) { builder.StartTable(11); }
+  public static void AddFilePath(FlatBufferBuilder builder, StringOffset filePathOffset) { builder.AddOffset(0, filePathOffset.Value, 0); }
+  public static void AddTimeSpan(FlatBufferBuilder builder, float timeSpan) { builder.AddFloat(1, timeSpan, 0.0f); }
+  public static void AddCurrentTime(FlatBufferBuilder builder, float currentTime) { builder.AddFloat(2, currentTime, 0.0f); }
+  public static void AddStartWithOffsetData(FlatBufferBuilder builder, bool startWithOffsetData) { builder.AddBool(3, startWithOffsetData, false); }
+  public static void AddOffsetDataName(FlatBufferBuilder builder, StringOffset offsetDataNameOffset) { builder.AddOffset(4, offsetDataNameOffset.Value, 0); }
+  public static void AddOffsetBlendWeight(FlatBufferBuilder builder, uint offsetBlendWeight) { builder.AddUint(5, offsetBlendWeight, 0); }
+  public static void AddPriority(FlatBufferBuilder builder, uint priority) { builder.AddUint(6, priority, 0); }
+  public static void AddAreaFilePath(FlatBufferBuilder builder, StringOffset areaFilePathOffset) { builder.AddOffset(7, areaFilePathOffset.Value, 0); }
+  public static void AddAreaTimeSpan(FlatBufferBuilder builder, uint areaTimeSpan) { builder.AddUint(8, areaTimeSpan, 0); }
+  public static void AddOffsetFilePath(FlatBufferBuilder builder, StringOffset offsetFilePathOffset) { builder.AddOffset(9, offsetFilePathOffset.Value, 0); }
+  public static void AddOffsetTimeSpan(FlatBufferBuilder builder, uint offsetTimeSpan) { builder.AddUint(10, offsetTimeSpan, 0); }
   public static Offset<Titan.TrinityScene.pe_LightForWeather> Endpe_LightForWeather(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Titan.TrinityScene.pe_LightForWeather>(o);
@@ -102,62 +106,66 @@ public struct pe_LightForWeather : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(pe_LightForWeatherT _o) {
-    _o.Unk0 = this.Unk0;
-    _o.Unk1 = this.Unk1;
-    _o.Unk2 = this.Unk2;
-    _o.Unk3 = this.Unk3;
-    _o.Unk4 = this.Unk4;
-    _o.Unk5 = this.Unk5;
-    _o.Unk6 = this.Unk6;
-    _o.Unk7 = this.Unk7;
-    _o.Unk8 = this.Unk8;
-    _o.Unk9 = this.Unk9;
+    _o.FilePath = this.FilePath;
+    _o.TimeSpan = this.TimeSpan;
+    _o.CurrentTime = this.CurrentTime;
+    _o.StartWithOffsetData = this.StartWithOffsetData;
+    _o.OffsetDataName = this.OffsetDataName;
+    _o.OffsetBlendWeight = this.OffsetBlendWeight;
+    _o.Priority = this.Priority;
+    _o.AreaFilePath = this.AreaFilePath;
+    _o.AreaTimeSpan = this.AreaTimeSpan;
+    _o.OffsetFilePath = this.OffsetFilePath;
+    _o.OffsetTimeSpan = this.OffsetTimeSpan;
   }
   public static Offset<Titan.TrinityScene.pe_LightForWeather> Pack(FlatBufferBuilder builder, pe_LightForWeatherT _o) {
     if (_o == null) return default(Offset<Titan.TrinityScene.pe_LightForWeather>);
-    var _unk_0 = _o.Unk0 == null ? default(StringOffset) : builder.CreateString(_o.Unk0);
-    var _unk_4 = _o.Unk4 == null ? default(StringOffset) : builder.CreateString(_o.Unk4);
-    var _unk_7 = _o.Unk7 == null ? default(StringOffset) : builder.CreateString(_o.Unk7);
-    var _unk_9 = _o.Unk9 == null ? default(StringOffset) : builder.CreateString(_o.Unk9);
+    var _file_path = _o.FilePath == null ? default(StringOffset) : builder.CreateString(_o.FilePath);
+    var _offset_data_name = _o.OffsetDataName == null ? default(StringOffset) : builder.CreateString(_o.OffsetDataName);
+    var _area_file_path = _o.AreaFilePath == null ? default(StringOffset) : builder.CreateString(_o.AreaFilePath);
+    var _offset_file_path = _o.OffsetFilePath == null ? default(StringOffset) : builder.CreateString(_o.OffsetFilePath);
     return Createpe_LightForWeather(
       builder,
-      _unk_0,
-      _o.Unk1,
-      _o.Unk2,
-      _o.Unk3,
-      _unk_4,
-      _o.Unk5,
-      _o.Unk6,
-      _unk_7,
-      _o.Unk8,
-      _unk_9);
+      _file_path,
+      _o.TimeSpan,
+      _o.CurrentTime,
+      _o.StartWithOffsetData,
+      _offset_data_name,
+      _o.OffsetBlendWeight,
+      _o.Priority,
+      _area_file_path,
+      _o.AreaTimeSpan,
+      _offset_file_path,
+      _o.OffsetTimeSpan);
   }
 }
 
 public class pe_LightForWeatherT
 {
-  public string Unk0 { get; set; }
-  public float Unk1 { get; set; }
-  public float Unk2 { get; set; }
-  public uint Unk3 { get; set; }
-  public string Unk4 { get; set; }
-  public uint Unk5 { get; set; }
-  public uint Unk6 { get; set; }
-  public string Unk7 { get; set; }
-  public uint Unk8 { get; set; }
-  public string Unk9 { get; set; }
+  public string FilePath { get; set; }
+  public float TimeSpan { get; set; }
+  public float CurrentTime { get; set; }
+  public bool StartWithOffsetData { get; set; }
+  public string OffsetDataName { get; set; }
+  public uint OffsetBlendWeight { get; set; }
+  public uint Priority { get; set; }
+  public string AreaFilePath { get; set; }
+  public uint AreaTimeSpan { get; set; }
+  public string OffsetFilePath { get; set; }
+  public uint OffsetTimeSpan { get; set; }
 
   public pe_LightForWeatherT() {
-    this.Unk0 = null;
-    this.Unk1 = 0.0f;
-    this.Unk2 = 0.0f;
-    this.Unk3 = 0;
-    this.Unk4 = null;
-    this.Unk5 = 0;
-    this.Unk6 = 0;
-    this.Unk7 = null;
-    this.Unk8 = 0;
-    this.Unk9 = null;
+    this.FilePath = null;
+    this.TimeSpan = 0.0f;
+    this.CurrentTime = 0.0f;
+    this.StartWithOffsetData = false;
+    this.OffsetDataName = null;
+    this.OffsetBlendWeight = 0;
+    this.Priority = 0;
+    this.AreaFilePath = null;
+    this.AreaTimeSpan = 0;
+    this.OffsetFilePath = null;
+    this.OffsetTimeSpan = 0;
   }
   public static pe_LightForWeatherT DeserializeFromBinary(byte[] fbBuffer) {
     return pe_LightForWeather.GetRootAspe_LightForWeather(new ByteBuffer(fbBuffer)).UnPack();

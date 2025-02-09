@@ -19,39 +19,43 @@ public struct pe_AmbientWindComponent : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public pe_AmbientWindComponent __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public string Unk0 { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string Instancename { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetUnk0Bytes() { return __p.__vector_as_span<byte>(4, 1); }
+  public Span<byte> GetInstancenameBytes() { return __p.__vector_as_span<byte>(4, 1); }
 #else
-  public ArraySegment<byte>? GetUnk0Bytes() { return __p.__vector_as_arraysegment(4); }
+  public ArraySegment<byte>? GetInstancenameBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
-  public byte[] GetUnk0Array() { return __p.__vector_as_array<byte>(4); }
-  public Vec3f? Unk1 { get { int o = __p.__offset(6); return o != 0 ? (Vec3f?)(new Vec3f()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-  public float Res2 { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float Unk3 { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
-  public float Unk4 { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public byte[] GetInstancenameArray() { return __p.__vector_as_array<byte>(4); }
+  public Vec3f? Direction { get { int o = __p.__offset(6); return o != 0 ? (Vec3f?)(new Vec3f()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public float Speed { get { int o = __p.__offset(8); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float NoiseScale { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public float Strength { get { int o = __p.__offset(12); return o != 0 ? __p.bb.GetFloat(o + __p.bb_pos) : (float)0.0f; } }
+  public bool ScriptControlOnly { get { int o = __p.__offset(14); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
 
   public static Offset<Titan.TrinityScene.pe_AmbientWindComponent> Createpe_AmbientWindComponent(FlatBufferBuilder builder,
-      StringOffset unk_0Offset = default(StringOffset),
-      Vec3fT unk_1 = null,
-      float res_2 = 0.0f,
-      float unk_3 = 0.0f,
-      float unk_4 = 0.0f) {
-    builder.StartTable(5);
-    pe_AmbientWindComponent.AddUnk4(builder, unk_4);
-    pe_AmbientWindComponent.AddUnk3(builder, unk_3);
-    pe_AmbientWindComponent.AddRes2(builder, res_2);
-    pe_AmbientWindComponent.AddUnk1(builder, Vec3f.Pack(builder, unk_1));
-    pe_AmbientWindComponent.AddUnk0(builder, unk_0Offset);
+      StringOffset instancenameOffset = default(StringOffset),
+      Vec3fT direction = null,
+      float speed = 0.0f,
+      float noise_scale = 0.0f,
+      float strength = 0.0f,
+      bool script_control_only = false) {
+    builder.StartTable(6);
+    pe_AmbientWindComponent.AddStrength(builder, strength);
+    pe_AmbientWindComponent.AddNoiseScale(builder, noise_scale);
+    pe_AmbientWindComponent.AddSpeed(builder, speed);
+    pe_AmbientWindComponent.AddDirection(builder, Vec3f.Pack(builder, direction));
+    pe_AmbientWindComponent.AddInstancename(builder, instancenameOffset);
+    pe_AmbientWindComponent.AddScriptControlOnly(builder, script_control_only);
     return pe_AmbientWindComponent.Endpe_AmbientWindComponent(builder);
   }
 
-  public static void Startpe_AmbientWindComponent(FlatBufferBuilder builder) { builder.StartTable(5); }
-  public static void AddUnk0(FlatBufferBuilder builder, StringOffset unk0Offset) { builder.AddOffset(0, unk0Offset.Value, 0); }
-  public static void AddUnk1(FlatBufferBuilder builder, Offset<Vec3f> unk1Offset) { builder.AddStruct(1, unk1Offset.Value, 0); }
-  public static void AddRes2(FlatBufferBuilder builder, float res2) { builder.AddFloat(2, res2, 0.0f); }
-  public static void AddUnk3(FlatBufferBuilder builder, float unk3) { builder.AddFloat(3, unk3, 0.0f); }
-  public static void AddUnk4(FlatBufferBuilder builder, float unk4) { builder.AddFloat(4, unk4, 0.0f); }
+  public static void Startpe_AmbientWindComponent(FlatBufferBuilder builder) { builder.StartTable(6); }
+  public static void AddInstancename(FlatBufferBuilder builder, StringOffset instancenameOffset) { builder.AddOffset(0, instancenameOffset.Value, 0); }
+  public static void AddDirection(FlatBufferBuilder builder, Offset<Vec3f> directionOffset) { builder.AddStruct(1, directionOffset.Value, 0); }
+  public static void AddSpeed(FlatBufferBuilder builder, float speed) { builder.AddFloat(2, speed, 0.0f); }
+  public static void AddNoiseScale(FlatBufferBuilder builder, float noiseScale) { builder.AddFloat(3, noiseScale, 0.0f); }
+  public static void AddStrength(FlatBufferBuilder builder, float strength) { builder.AddFloat(4, strength, 0.0f); }
+  public static void AddScriptControlOnly(FlatBufferBuilder builder, bool scriptControlOnly) { builder.AddBool(5, scriptControlOnly, false); }
   public static Offset<Titan.TrinityScene.pe_AmbientWindComponent> Endpe_AmbientWindComponent(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Titan.TrinityScene.pe_AmbientWindComponent>(o);
@@ -64,39 +68,43 @@ public struct pe_AmbientWindComponent : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(pe_AmbientWindComponentT _o) {
-    _o.Unk0 = this.Unk0;
-    _o.Unk1 = this.Unk1.HasValue ? this.Unk1.Value.UnPack() : null;
-    _o.Res2 = this.Res2;
-    _o.Unk3 = this.Unk3;
-    _o.Unk4 = this.Unk4;
+    _o.Instancename = this.Instancename;
+    _o.Direction = this.Direction.HasValue ? this.Direction.Value.UnPack() : null;
+    _o.Speed = this.Speed;
+    _o.NoiseScale = this.NoiseScale;
+    _o.Strength = this.Strength;
+    _o.ScriptControlOnly = this.ScriptControlOnly;
   }
   public static Offset<Titan.TrinityScene.pe_AmbientWindComponent> Pack(FlatBufferBuilder builder, pe_AmbientWindComponentT _o) {
     if (_o == null) return default(Offset<Titan.TrinityScene.pe_AmbientWindComponent>);
-    var _unk_0 = _o.Unk0 == null ? default(StringOffset) : builder.CreateString(_o.Unk0);
+    var _instancename = _o.Instancename == null ? default(StringOffset) : builder.CreateString(_o.Instancename);
     return Createpe_AmbientWindComponent(
       builder,
-      _unk_0,
-      _o.Unk1,
-      _o.Res2,
-      _o.Unk3,
-      _o.Unk4);
+      _instancename,
+      _o.Direction,
+      _o.Speed,
+      _o.NoiseScale,
+      _o.Strength,
+      _o.ScriptControlOnly);
   }
 }
 
 public class pe_AmbientWindComponentT
 {
-  public string Unk0 { get; set; }
-  public Vec3fT Unk1 { get; set; }
-  public float Res2 { get; set; }
-  public float Unk3 { get; set; }
-  public float Unk4 { get; set; }
+  public string Instancename { get; set; }
+  public Vec3fT Direction { get; set; }
+  public float Speed { get; set; }
+  public float NoiseScale { get; set; }
+  public float Strength { get; set; }
+  public bool ScriptControlOnly { get; set; }
 
   public pe_AmbientWindComponentT() {
-    this.Unk0 = null;
-    this.Unk1 = new Vec3fT();
-    this.Res2 = 0.0f;
-    this.Unk3 = 0.0f;
-    this.Unk4 = 0.0f;
+    this.Instancename = null;
+    this.Direction = new Vec3fT();
+    this.Speed = 0.0f;
+    this.NoiseScale = 0.0f;
+    this.Strength = 0.0f;
+    this.ScriptControlOnly = false;
   }
   public static pe_AmbientWindComponentT DeserializeFromBinary(byte[] fbBuffer) {
     return pe_AmbientWindComponent.GetRootAspe_AmbientWindComponent(new ByteBuffer(fbBuffer)).UnPack();

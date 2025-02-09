@@ -9,15 +9,15 @@ using global::System;
 using global::System.Collections.Generic;
 using global::Google.FlatBuffers;
 
-public struct pe_UikitManagerComponent : IFlatbufferObject
+public struct pe_UikitViewComponent : IFlatbufferObject
 {
   private Table __p;
   public ByteBuffer ByteBuffer { get { return __p.bb; } }
   public static void ValidateVersion() { FlatBufferConstants.FLATBUFFERS_23_3_3(); }
-  public static pe_UikitManagerComponent GetRootAspe_UikitManagerComponent(ByteBuffer _bb) { return GetRootAspe_UikitManagerComponent(_bb, new pe_UikitManagerComponent()); }
-  public static pe_UikitManagerComponent GetRootAspe_UikitManagerComponent(ByteBuffer _bb, pe_UikitManagerComponent obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
+  public static pe_UikitViewComponent GetRootAspe_UikitViewComponent(ByteBuffer _bb) { return GetRootAspe_UikitViewComponent(_bb, new pe_UikitViewComponent()); }
+  public static pe_UikitViewComponent GetRootAspe_UikitViewComponent(ByteBuffer _bb, pe_UikitViewComponent obj) { return (obj.__assign(_bb.GetInt(_bb.Position) + _bb.Position, _bb)); }
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
-  public pe_UikitManagerComponent __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
+  public pe_UikitViewComponent __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public string Filepath { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
@@ -40,67 +40,84 @@ public struct pe_UikitManagerComponent : IFlatbufferObject
   public ArraySegment<byte>? GetPackageNameBytes() { return __p.__vector_as_arraysegment(8); }
 #endif
   public byte[] GetPackageNameArray() { return __p.__vector_as_array<byte>(8); }
-  public string LinkObjs(int j) { int o = __p.__offset(10); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
-  public int LinkObjsLength { get { int o = __p.__offset(10); return o != 0 ? __p.__vector_len(o) : 0; } }
-  public string LinkScenes(int j) { int o = __p.__offset(12); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
-  public int LinkScenesLength { get { int o = __p.__offset(12); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public string Group { get { int o = __p.__offset(10); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+#if ENABLE_SPAN_T
+  public Span<byte> GetGroupBytes() { return __p.__vector_as_span<byte>(10, 1); }
+#else
+  public ArraySegment<byte>? GetGroupBytes() { return __p.__vector_as_arraysegment(10); }
+#endif
+  public byte[] GetGroupArray() { return __p.__vector_as_array<byte>(10); }
+  public bool Resident { get { int o = __p.__offset(12); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public string LinkObjs(int j) { int o = __p.__offset(14); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
+  public int LinkObjsLength { get { int o = __p.__offset(14); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public string LinkScenes(int j) { int o = __p.__offset(16); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
+  public int LinkScenesLength { get { int o = __p.__offset(16); return o != 0 ? __p.__vector_len(o) : 0; } }
 
-  public static Offset<Titan.TrinityScene.pe_UikitManagerComponent> Createpe_UikitManagerComponent(FlatBufferBuilder builder,
+  public static Offset<Titan.TrinityScene.pe_UikitViewComponent> Createpe_UikitViewComponent(FlatBufferBuilder builder,
       StringOffset filepathOffset = default(StringOffset),
       StringOffset BluaPathOffset = default(StringOffset),
       StringOffset PackageNameOffset = default(StringOffset),
+      StringOffset GroupOffset = default(StringOffset),
+      bool Resident = false,
       VectorOffset Link_ObjsOffset = default(VectorOffset),
       VectorOffset Link_ScenesOffset = default(VectorOffset)) {
-    builder.StartTable(5);
-    pe_UikitManagerComponent.AddLinkScenes(builder, Link_ScenesOffset);
-    pe_UikitManagerComponent.AddLinkObjs(builder, Link_ObjsOffset);
-    pe_UikitManagerComponent.AddPackageName(builder, PackageNameOffset);
-    pe_UikitManagerComponent.AddBluaPath(builder, BluaPathOffset);
-    pe_UikitManagerComponent.AddFilepath(builder, filepathOffset);
-    return pe_UikitManagerComponent.Endpe_UikitManagerComponent(builder);
+    builder.StartTable(7);
+    pe_UikitViewComponent.AddLinkScenes(builder, Link_ScenesOffset);
+    pe_UikitViewComponent.AddLinkObjs(builder, Link_ObjsOffset);
+    pe_UikitViewComponent.AddGroup(builder, GroupOffset);
+    pe_UikitViewComponent.AddPackageName(builder, PackageNameOffset);
+    pe_UikitViewComponent.AddBluaPath(builder, BluaPathOffset);
+    pe_UikitViewComponent.AddFilepath(builder, filepathOffset);
+    pe_UikitViewComponent.AddResident(builder, Resident);
+    return pe_UikitViewComponent.Endpe_UikitViewComponent(builder);
   }
 
-  public static void Startpe_UikitManagerComponent(FlatBufferBuilder builder) { builder.StartTable(5); }
+  public static void Startpe_UikitViewComponent(FlatBufferBuilder builder) { builder.StartTable(7); }
   public static void AddFilepath(FlatBufferBuilder builder, StringOffset filepathOffset) { builder.AddOffset(0, filepathOffset.Value, 0); }
   public static void AddBluaPath(FlatBufferBuilder builder, StringOffset BluaPathOffset) { builder.AddOffset(1, BluaPathOffset.Value, 0); }
   public static void AddPackageName(FlatBufferBuilder builder, StringOffset PackageNameOffset) { builder.AddOffset(2, PackageNameOffset.Value, 0); }
-  public static void AddLinkObjs(FlatBufferBuilder builder, VectorOffset LinkObjsOffset) { builder.AddOffset(3, LinkObjsOffset.Value, 0); }
+  public static void AddGroup(FlatBufferBuilder builder, StringOffset GroupOffset) { builder.AddOffset(3, GroupOffset.Value, 0); }
+  public static void AddResident(FlatBufferBuilder builder, bool Resident) { builder.AddBool(4, Resident, false); }
+  public static void AddLinkObjs(FlatBufferBuilder builder, VectorOffset LinkObjsOffset) { builder.AddOffset(5, LinkObjsOffset.Value, 0); }
   public static VectorOffset CreateLinkObjsVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
   public static VectorOffset CreateLinkObjsVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateLinkObjsVectorBlock(FlatBufferBuilder builder, ArraySegment<StringOffset> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateLinkObjsVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<StringOffset>(dataPtr, sizeInBytes); return builder.EndVector(); }
   public static void StartLinkObjsVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static void AddLinkScenes(FlatBufferBuilder builder, VectorOffset LinkScenesOffset) { builder.AddOffset(4, LinkScenesOffset.Value, 0); }
+  public static void AddLinkScenes(FlatBufferBuilder builder, VectorOffset LinkScenesOffset) { builder.AddOffset(6, LinkScenesOffset.Value, 0); }
   public static VectorOffset CreateLinkScenesVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
   public static VectorOffset CreateLinkScenesVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateLinkScenesVectorBlock(FlatBufferBuilder builder, ArraySegment<StringOffset> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
   public static VectorOffset CreateLinkScenesVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<StringOffset>(dataPtr, sizeInBytes); return builder.EndVector(); }
   public static void StartLinkScenesVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
-  public static Offset<Titan.TrinityScene.pe_UikitManagerComponent> Endpe_UikitManagerComponent(FlatBufferBuilder builder) {
+  public static Offset<Titan.TrinityScene.pe_UikitViewComponent> Endpe_UikitViewComponent(FlatBufferBuilder builder) {
     int o = builder.EndTable();
-    return new Offset<Titan.TrinityScene.pe_UikitManagerComponent>(o);
+    return new Offset<Titan.TrinityScene.pe_UikitViewComponent>(o);
   }
-  public static void Finishpe_UikitManagerComponentBuffer(FlatBufferBuilder builder, Offset<Titan.TrinityScene.pe_UikitManagerComponent> offset) { builder.Finish(offset.Value); }
-  public static void FinishSizePrefixedpe_UikitManagerComponentBuffer(FlatBufferBuilder builder, Offset<Titan.TrinityScene.pe_UikitManagerComponent> offset) { builder.FinishSizePrefixed(offset.Value); }
-  public pe_UikitManagerComponentT UnPack() {
-    var _o = new pe_UikitManagerComponentT();
+  public static void Finishpe_UikitViewComponentBuffer(FlatBufferBuilder builder, Offset<Titan.TrinityScene.pe_UikitViewComponent> offset) { builder.Finish(offset.Value); }
+  public static void FinishSizePrefixedpe_UikitViewComponentBuffer(FlatBufferBuilder builder, Offset<Titan.TrinityScene.pe_UikitViewComponent> offset) { builder.FinishSizePrefixed(offset.Value); }
+  public pe_UikitViewComponentT UnPack() {
+    var _o = new pe_UikitViewComponentT();
     this.UnPackTo(_o);
     return _o;
   }
-  public void UnPackTo(pe_UikitManagerComponentT _o) {
+  public void UnPackTo(pe_UikitViewComponentT _o) {
     _o.Filepath = this.Filepath;
     _o.BluaPath = this.BluaPath;
     _o.PackageName = this.PackageName;
+    _o.Group = this.Group;
+    _o.Resident = this.Resident;
     _o.LinkObjs = new List<string>();
     for (var _j = 0; _j < this.LinkObjsLength; ++_j) {_o.LinkObjs.Add(this.LinkObjs(_j));}
     _o.LinkScenes = new List<string>();
     for (var _j = 0; _j < this.LinkScenesLength; ++_j) {_o.LinkScenes.Add(this.LinkScenes(_j));}
   }
-  public static Offset<Titan.TrinityScene.pe_UikitManagerComponent> Pack(FlatBufferBuilder builder, pe_UikitManagerComponentT _o) {
-    if (_o == null) return default(Offset<Titan.TrinityScene.pe_UikitManagerComponent>);
+  public static Offset<Titan.TrinityScene.pe_UikitViewComponent> Pack(FlatBufferBuilder builder, pe_UikitViewComponentT _o) {
+    if (_o == null) return default(Offset<Titan.TrinityScene.pe_UikitViewComponent>);
     var _filepath = _o.Filepath == null ? default(StringOffset) : builder.CreateString(_o.Filepath);
     var _BluaPath = _o.BluaPath == null ? default(StringOffset) : builder.CreateString(_o.BluaPath);
     var _PackageName = _o.PackageName == null ? default(StringOffset) : builder.CreateString(_o.PackageName);
+    var _Group = _o.Group == null ? default(StringOffset) : builder.CreateString(_o.Group);
     var _Link_Objs = default(VectorOffset);
     if (_o.LinkObjs != null) {
       var __Link_Objs = new StringOffset[_o.LinkObjs.Count];
@@ -113,37 +130,43 @@ public struct pe_UikitManagerComponent : IFlatbufferObject
       for (var _j = 0; _j < __Link_Scenes.Length; ++_j) { __Link_Scenes[_j] = builder.CreateString(_o.LinkScenes[_j]); }
       _Link_Scenes = CreateLinkScenesVector(builder, __Link_Scenes);
     }
-    return Createpe_UikitManagerComponent(
+    return Createpe_UikitViewComponent(
       builder,
       _filepath,
       _BluaPath,
       _PackageName,
+      _Group,
+      _o.Resident,
       _Link_Objs,
       _Link_Scenes);
   }
 }
 
-public class pe_UikitManagerComponentT
+public class pe_UikitViewComponentT
 {
   public string Filepath { get; set; }
   public string BluaPath { get; set; }
   public string PackageName { get; set; }
+  public string Group { get; set; }
+  public bool Resident { get; set; }
   public List<string> LinkObjs { get; set; }
   public List<string> LinkScenes { get; set; }
 
-  public pe_UikitManagerComponentT() {
+  public pe_UikitViewComponentT() {
     this.Filepath = null;
     this.BluaPath = null;
     this.PackageName = null;
+    this.Group = null;
+    this.Resident = false;
     this.LinkObjs = null;
     this.LinkScenes = null;
   }
-  public static pe_UikitManagerComponentT DeserializeFromBinary(byte[] fbBuffer) {
-    return pe_UikitManagerComponent.GetRootAspe_UikitManagerComponent(new ByteBuffer(fbBuffer)).UnPack();
+  public static pe_UikitViewComponentT DeserializeFromBinary(byte[] fbBuffer) {
+    return pe_UikitViewComponent.GetRootAspe_UikitViewComponent(new ByteBuffer(fbBuffer)).UnPack();
   }
   public byte[] SerializeToBinary() {
     var fbb = new FlatBufferBuilder(0x10000);
-    pe_UikitManagerComponent.Finishpe_UikitManagerComponentBuffer(fbb, pe_UikitManagerComponent.Pack(fbb, this));
+    pe_UikitViewComponent.Finishpe_UikitViewComponentBuffer(fbb, pe_UikitViewComponent.Pack(fbb, this));
     return fbb.DataBuffer.ToSizedArray();
   }
 }

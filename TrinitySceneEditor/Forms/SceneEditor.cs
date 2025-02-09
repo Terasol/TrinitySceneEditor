@@ -148,8 +148,10 @@ namespace TrinitySceneEditor.Forms
             {"pe_AudioGeneratorComponent", "gfl.audio.fb.AudioGeneratorComponentT" },
             {"pe_AudioJointComponent", "gfl.audio.fb.AudioJointComponentT" },
             {"pe_AudioPlayerComponent", "gfl.audio.fb.AudioPlayerComponentT" },
+            {"pe_InputEventTriggerComponent", "gfl.scene.fb.InputEventTriggerComponentT" },
             {"pe_ParticleAudioComponent", "gfl.audio.fb.ParticleAudioComponentT" },
             {"SubScene", "gfl.scene.fb.SubSceneT" },
+            {"trinity_OverrideSensorData", "Titan.TrinityScene.trinity_OverrideSensorDataT" },
         };
 
         internal static Type? Get_type(string Type_name)

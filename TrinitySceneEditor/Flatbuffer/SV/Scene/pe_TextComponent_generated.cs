@@ -19,23 +19,23 @@ public struct pe_TextComponent : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public pe_TextComponent __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public string Filepath { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string FilePath { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetFilepathBytes() { return __p.__vector_as_span<byte>(4, 1); }
+  public Span<byte> GetFilePathBytes() { return __p.__vector_as_span<byte>(4, 1); }
 #else
-  public ArraySegment<byte>? GetFilepathBytes() { return __p.__vector_as_arraysegment(4); }
+  public ArraySegment<byte>? GetFilePathBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
-  public byte[] GetFilepathArray() { return __p.__vector_as_array<byte>(4); }
+  public byte[] GetFilePathArray() { return __p.__vector_as_array<byte>(4); }
 
   public static Offset<Titan.TrinityScene.pe_TextComponent> Createpe_TextComponent(FlatBufferBuilder builder,
-      StringOffset filepathOffset = default(StringOffset)) {
+      StringOffset file_pathOffset = default(StringOffset)) {
     builder.StartTable(1);
-    pe_TextComponent.AddFilepath(builder, filepathOffset);
+    pe_TextComponent.AddFilePath(builder, file_pathOffset);
     return pe_TextComponent.Endpe_TextComponent(builder);
   }
 
   public static void Startpe_TextComponent(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddFilepath(FlatBufferBuilder builder, StringOffset filepathOffset) { builder.AddOffset(0, filepathOffset.Value, 0); }
+  public static void AddFilePath(FlatBufferBuilder builder, StringOffset filePathOffset) { builder.AddOffset(0, filePathOffset.Value, 0); }
   public static Offset<Titan.TrinityScene.pe_TextComponent> Endpe_TextComponent(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Titan.TrinityScene.pe_TextComponent>(o);
@@ -48,23 +48,23 @@ public struct pe_TextComponent : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(pe_TextComponentT _o) {
-    _o.Filepath = this.Filepath;
+    _o.FilePath = this.FilePath;
   }
   public static Offset<Titan.TrinityScene.pe_TextComponent> Pack(FlatBufferBuilder builder, pe_TextComponentT _o) {
     if (_o == null) return default(Offset<Titan.TrinityScene.pe_TextComponent>);
-    var _filepath = _o.Filepath == null ? default(StringOffset) : builder.CreateString(_o.Filepath);
+    var _file_path = _o.FilePath == null ? default(StringOffset) : builder.CreateString(_o.FilePath);
     return Createpe_TextComponent(
       builder,
-      _filepath);
+      _file_path);
   }
 }
 
 public class pe_TextComponentT
 {
-  public string Filepath { get; set; }
+  public string FilePath { get; set; }
 
   public pe_TextComponentT() {
-    this.Filepath = null;
+    this.FilePath = null;
   }
   public static pe_TextComponentT DeserializeFromBinary(byte[] fbBuffer) {
     return pe_TextComponent.GetRootAspe_TextComponent(new ByteBuffer(fbBuffer)).UnPack();

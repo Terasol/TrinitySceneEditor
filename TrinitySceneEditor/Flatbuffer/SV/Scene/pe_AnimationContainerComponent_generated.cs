@@ -19,23 +19,23 @@ public struct pe_AnimationContainerComponent : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public pe_AnimationContainerComponent __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public string Unk0(int j) { int o = __p.__offset(4); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
-  public int Unk0Length { get { int o = __p.__offset(4); return o != 0 ? __p.__vector_len(o) : 0; } }
+  public string FilePath(int j) { int o = __p.__offset(4); return o != 0 ? __p.__string(__p.__vector(o) + j * 4) : null; }
+  public int FilePathLength { get { int o = __p.__offset(4); return o != 0 ? __p.__vector_len(o) : 0; } }
 
   public static Offset<Titan.TrinityScene.pe_AnimationContainerComponent> Createpe_AnimationContainerComponent(FlatBufferBuilder builder,
-      VectorOffset unk_0Offset = default(VectorOffset)) {
+      VectorOffset file_pathOffset = default(VectorOffset)) {
     builder.StartTable(1);
-    pe_AnimationContainerComponent.AddUnk0(builder, unk_0Offset);
+    pe_AnimationContainerComponent.AddFilePath(builder, file_pathOffset);
     return pe_AnimationContainerComponent.Endpe_AnimationContainerComponent(builder);
   }
 
   public static void Startpe_AnimationContainerComponent(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddUnk0(FlatBufferBuilder builder, VectorOffset unk0Offset) { builder.AddOffset(0, unk0Offset.Value, 0); }
-  public static VectorOffset CreateUnk0Vector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
-  public static VectorOffset CreateUnk0VectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
-  public static VectorOffset CreateUnk0VectorBlock(FlatBufferBuilder builder, ArraySegment<StringOffset> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
-  public static VectorOffset CreateUnk0VectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<StringOffset>(dataPtr, sizeInBytes); return builder.EndVector(); }
-  public static void StartUnk0Vector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
+  public static void AddFilePath(FlatBufferBuilder builder, VectorOffset filePathOffset) { builder.AddOffset(0, filePathOffset.Value, 0); }
+  public static VectorOffset CreateFilePathVector(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); for (int i = data.Length - 1; i >= 0; i--) builder.AddOffset(data[i].Value); return builder.EndVector(); }
+  public static VectorOffset CreateFilePathVectorBlock(FlatBufferBuilder builder, StringOffset[] data) { builder.StartVector(4, data.Length, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateFilePathVectorBlock(FlatBufferBuilder builder, ArraySegment<StringOffset> data) { builder.StartVector(4, data.Count, 4); builder.Add(data); return builder.EndVector(); }
+  public static VectorOffset CreateFilePathVectorBlock(FlatBufferBuilder builder, IntPtr dataPtr, int sizeInBytes) { builder.StartVector(1, sizeInBytes, 1); builder.Add<StringOffset>(dataPtr, sizeInBytes); return builder.EndVector(); }
+  public static void StartFilePathVector(FlatBufferBuilder builder, int numElems) { builder.StartVector(4, numElems, 4); }
   public static Offset<Titan.TrinityScene.pe_AnimationContainerComponent> Endpe_AnimationContainerComponent(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Titan.TrinityScene.pe_AnimationContainerComponent>(o);
@@ -48,29 +48,29 @@ public struct pe_AnimationContainerComponent : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(pe_AnimationContainerComponentT _o) {
-    _o.Unk0 = new List<string>();
-    for (var _j = 0; _j < this.Unk0Length; ++_j) {_o.Unk0.Add(this.Unk0(_j));}
+    _o.FilePath = new List<string>();
+    for (var _j = 0; _j < this.FilePathLength; ++_j) {_o.FilePath.Add(this.FilePath(_j));}
   }
   public static Offset<Titan.TrinityScene.pe_AnimationContainerComponent> Pack(FlatBufferBuilder builder, pe_AnimationContainerComponentT _o) {
     if (_o == null) return default(Offset<Titan.TrinityScene.pe_AnimationContainerComponent>);
-    var _unk_0 = default(VectorOffset);
-    if (_o.Unk0 != null) {
-      var __unk_0 = new StringOffset[_o.Unk0.Count];
-      for (var _j = 0; _j < __unk_0.Length; ++_j) { __unk_0[_j] = builder.CreateString(_o.Unk0[_j]); }
-      _unk_0 = CreateUnk0Vector(builder, __unk_0);
+    var _file_path = default(VectorOffset);
+    if (_o.FilePath != null) {
+      var __file_path = new StringOffset[_o.FilePath.Count];
+      for (var _j = 0; _j < __file_path.Length; ++_j) { __file_path[_j] = builder.CreateString(_o.FilePath[_j]); }
+      _file_path = CreateFilePathVector(builder, __file_path);
     }
     return Createpe_AnimationContainerComponent(
       builder,
-      _unk_0);
+      _file_path);
   }
 }
 
 public class pe_AnimationContainerComponentT
 {
-  public List<string> Unk0 { get; set; }
+  public List<string> FilePath { get; set; }
 
   public pe_AnimationContainerComponentT() {
-    this.Unk0 = null;
+    this.FilePath = null;
   }
   public static pe_AnimationContainerComponentT DeserializeFromBinary(byte[] fbBuffer) {
     return pe_AnimationContainerComponent.GetRootAspe_AnimationContainerComponent(new ByteBuffer(fbBuffer)).UnPack();

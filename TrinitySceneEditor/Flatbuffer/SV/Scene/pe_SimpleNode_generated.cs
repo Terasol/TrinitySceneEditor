@@ -19,23 +19,23 @@ public struct pe_SimpleNode : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public pe_SimpleNode __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public string Unk0 { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string NodeName { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetUnk0Bytes() { return __p.__vector_as_span<byte>(4, 1); }
+  public Span<byte> GetNodeNameBytes() { return __p.__vector_as_span<byte>(4, 1); }
 #else
-  public ArraySegment<byte>? GetUnk0Bytes() { return __p.__vector_as_arraysegment(4); }
+  public ArraySegment<byte>? GetNodeNameBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
-  public byte[] GetUnk0Array() { return __p.__vector_as_array<byte>(4); }
+  public byte[] GetNodeNameArray() { return __p.__vector_as_array<byte>(4); }
 
   public static Offset<Titan.TrinityScene.pe_SimpleNode> Createpe_SimpleNode(FlatBufferBuilder builder,
-      StringOffset unk_0Offset = default(StringOffset)) {
+      StringOffset node_nameOffset = default(StringOffset)) {
     builder.StartTable(1);
-    pe_SimpleNode.AddUnk0(builder, unk_0Offset);
+    pe_SimpleNode.AddNodeName(builder, node_nameOffset);
     return pe_SimpleNode.Endpe_SimpleNode(builder);
   }
 
   public static void Startpe_SimpleNode(FlatBufferBuilder builder) { builder.StartTable(1); }
-  public static void AddUnk0(FlatBufferBuilder builder, StringOffset unk0Offset) { builder.AddOffset(0, unk0Offset.Value, 0); }
+  public static void AddNodeName(FlatBufferBuilder builder, StringOffset nodeNameOffset) { builder.AddOffset(0, nodeNameOffset.Value, 0); }
   public static Offset<Titan.TrinityScene.pe_SimpleNode> Endpe_SimpleNode(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Titan.TrinityScene.pe_SimpleNode>(o);
@@ -48,23 +48,23 @@ public struct pe_SimpleNode : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(pe_SimpleNodeT _o) {
-    _o.Unk0 = this.Unk0;
+    _o.NodeName = this.NodeName;
   }
   public static Offset<Titan.TrinityScene.pe_SimpleNode> Pack(FlatBufferBuilder builder, pe_SimpleNodeT _o) {
     if (_o == null) return default(Offset<Titan.TrinityScene.pe_SimpleNode>);
-    var _unk_0 = _o.Unk0 == null ? default(StringOffset) : builder.CreateString(_o.Unk0);
+    var _node_name = _o.NodeName == null ? default(StringOffset) : builder.CreateString(_o.NodeName);
     return Createpe_SimpleNode(
       builder,
-      _unk_0);
+      _node_name);
   }
 }
 
 public class pe_SimpleNodeT
 {
-  public string Unk0 { get; set; }
+  public string NodeName { get; set; }
 
   public pe_SimpleNodeT() {
-    this.Unk0 = null;
+    this.NodeName = null;
   }
   public static pe_SimpleNodeT DeserializeFromBinary(byte[] fbBuffer) {
     return pe_SimpleNode.GetRootAspe_SimpleNode(new ByteBuffer(fbBuffer)).UnPack();

@@ -19,45 +19,45 @@ public struct pe_WeatherEffect : IFlatbufferObject
   public void __init(int _i, ByteBuffer _bb) { __p = new Table(_i, _bb); }
   public pe_WeatherEffect __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
-  public string EffectName { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public string WeatherName { get { int o = __p.__offset(4); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetEffectNameBytes() { return __p.__vector_as_span<byte>(4, 1); }
+  public Span<byte> GetWeatherNameBytes() { return __p.__vector_as_span<byte>(4, 1); }
 #else
-  public ArraySegment<byte>? GetEffectNameBytes() { return __p.__vector_as_arraysegment(4); }
+  public ArraySegment<byte>? GetWeatherNameBytes() { return __p.__vector_as_arraysegment(4); }
 #endif
-  public byte[] GetEffectNameArray() { return __p.__vector_as_array<byte>(4); }
-  public string EffectFilePath { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
+  public byte[] GetWeatherNameArray() { return __p.__vector_as_array<byte>(4); }
+  public string FilePath { get { int o = __p.__offset(6); return o != 0 ? __p.__string(o + __p.bb_pos) : null; } }
 #if ENABLE_SPAN_T
-  public Span<byte> GetEffectFilePathBytes() { return __p.__vector_as_span<byte>(6, 1); }
+  public Span<byte> GetFilePathBytes() { return __p.__vector_as_span<byte>(6, 1); }
 #else
-  public ArraySegment<byte>? GetEffectFilePathBytes() { return __p.__vector_as_arraysegment(6); }
+  public ArraySegment<byte>? GetFilePathBytes() { return __p.__vector_as_arraysegment(6); }
 #endif
-  public byte[] GetEffectFilePathArray() { return __p.__vector_as_array<byte>(6); }
-  public Vec3f? Unk2 { get { int o = __p.__offset(8); return o != 0 ? (Vec3f?)(new Vec3f()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-  public uint Unk3 { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
-  public bool Unk4 { get { int o = __p.__offset(12); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
+  public byte[] GetFilePathArray() { return __p.__vector_as_array<byte>(6); }
+  public Vec3f? PositionalOffset { get { int o = __p.__offset(8); return o != 0 ? (Vec3f?)(new Vec3f()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public uint KillDelayTime { get { int o = __p.__offset(10); return o != 0 ? __p.bb.GetUint(o + __p.bb_pos) : (uint)0; } }
+  public bool IsFollowCamera { get { int o = __p.__offset(12); return o != 0 ? 0!=__p.bb.Get(o + __p.bb_pos) : (bool)false; } }
 
   public static Offset<Titan.TrinityScene.pe_WeatherEffect> Createpe_WeatherEffect(FlatBufferBuilder builder,
-      StringOffset effect_nameOffset = default(StringOffset),
-      StringOffset effect_file_pathOffset = default(StringOffset),
-      Vec3fT unk_2 = null,
-      uint unk_3 = 0,
-      bool unk_4 = false) {
+      StringOffset weather_nameOffset = default(StringOffset),
+      StringOffset file_pathOffset = default(StringOffset),
+      Vec3fT positional_offset = null,
+      uint kill_delay_time = 0,
+      bool is_follow_camera = false) {
     builder.StartTable(5);
-    pe_WeatherEffect.AddUnk3(builder, unk_3);
-    pe_WeatherEffect.AddUnk2(builder, Vec3f.Pack(builder, unk_2));
-    pe_WeatherEffect.AddEffectFilePath(builder, effect_file_pathOffset);
-    pe_WeatherEffect.AddEffectName(builder, effect_nameOffset);
-    pe_WeatherEffect.AddUnk4(builder, unk_4);
+    pe_WeatherEffect.AddKillDelayTime(builder, kill_delay_time);
+    pe_WeatherEffect.AddPositionalOffset(builder, Vec3f.Pack(builder, positional_offset));
+    pe_WeatherEffect.AddFilePath(builder, file_pathOffset);
+    pe_WeatherEffect.AddWeatherName(builder, weather_nameOffset);
+    pe_WeatherEffect.AddIsFollowCamera(builder, is_follow_camera);
     return pe_WeatherEffect.Endpe_WeatherEffect(builder);
   }
 
   public static void Startpe_WeatherEffect(FlatBufferBuilder builder) { builder.StartTable(5); }
-  public static void AddEffectName(FlatBufferBuilder builder, StringOffset effectNameOffset) { builder.AddOffset(0, effectNameOffset.Value, 0); }
-  public static void AddEffectFilePath(FlatBufferBuilder builder, StringOffset effectFilePathOffset) { builder.AddOffset(1, effectFilePathOffset.Value, 0); }
-  public static void AddUnk2(FlatBufferBuilder builder, Offset<Vec3f> unk2Offset) { builder.AddStruct(2, unk2Offset.Value, 0); }
-  public static void AddUnk3(FlatBufferBuilder builder, uint unk3) { builder.AddUint(3, unk3, 0); }
-  public static void AddUnk4(FlatBufferBuilder builder, bool unk4) { builder.AddBool(4, unk4, false); }
+  public static void AddWeatherName(FlatBufferBuilder builder, StringOffset weatherNameOffset) { builder.AddOffset(0, weatherNameOffset.Value, 0); }
+  public static void AddFilePath(FlatBufferBuilder builder, StringOffset filePathOffset) { builder.AddOffset(1, filePathOffset.Value, 0); }
+  public static void AddPositionalOffset(FlatBufferBuilder builder, Offset<Vec3f> positionalOffsetOffset) { builder.AddStruct(2, positionalOffsetOffset.Value, 0); }
+  public static void AddKillDelayTime(FlatBufferBuilder builder, uint killDelayTime) { builder.AddUint(3, killDelayTime, 0); }
+  public static void AddIsFollowCamera(FlatBufferBuilder builder, bool isFollowCamera) { builder.AddBool(4, isFollowCamera, false); }
   public static Offset<Titan.TrinityScene.pe_WeatherEffect> Endpe_WeatherEffect(FlatBufferBuilder builder) {
     int o = builder.EndTable();
     return new Offset<Titan.TrinityScene.pe_WeatherEffect>(o);
@@ -70,40 +70,40 @@ public struct pe_WeatherEffect : IFlatbufferObject
     return _o;
   }
   public void UnPackTo(pe_WeatherEffectT _o) {
-    _o.EffectName = this.EffectName;
-    _o.EffectFilePath = this.EffectFilePath;
-    _o.Unk2 = this.Unk2.HasValue ? this.Unk2.Value.UnPack() : null;
-    _o.Unk3 = this.Unk3;
-    _o.Unk4 = this.Unk4;
+    _o.WeatherName = this.WeatherName;
+    _o.FilePath = this.FilePath;
+    _o.PositionalOffset = this.PositionalOffset.HasValue ? this.PositionalOffset.Value.UnPack() : null;
+    _o.KillDelayTime = this.KillDelayTime;
+    _o.IsFollowCamera = this.IsFollowCamera;
   }
   public static Offset<Titan.TrinityScene.pe_WeatherEffect> Pack(FlatBufferBuilder builder, pe_WeatherEffectT _o) {
     if (_o == null) return default(Offset<Titan.TrinityScene.pe_WeatherEffect>);
-    var _effect_name = _o.EffectName == null ? default(StringOffset) : builder.CreateString(_o.EffectName);
-    var _effect_file_path = _o.EffectFilePath == null ? default(StringOffset) : builder.CreateString(_o.EffectFilePath);
+    var _weather_name = _o.WeatherName == null ? default(StringOffset) : builder.CreateString(_o.WeatherName);
+    var _file_path = _o.FilePath == null ? default(StringOffset) : builder.CreateString(_o.FilePath);
     return Createpe_WeatherEffect(
       builder,
-      _effect_name,
-      _effect_file_path,
-      _o.Unk2,
-      _o.Unk3,
-      _o.Unk4);
+      _weather_name,
+      _file_path,
+      _o.PositionalOffset,
+      _o.KillDelayTime,
+      _o.IsFollowCamera);
   }
 }
 
 public class pe_WeatherEffectT
 {
-  public string EffectName { get; set; }
-  public string EffectFilePath { get; set; }
-  public Vec3fT Unk2 { get; set; }
-  public uint Unk3 { get; set; }
-  public bool Unk4 { get; set; }
+  public string WeatherName { get; set; }
+  public string FilePath { get; set; }
+  public Vec3fT PositionalOffset { get; set; }
+  public uint KillDelayTime { get; set; }
+  public bool IsFollowCamera { get; set; }
 
   public pe_WeatherEffectT() {
-    this.EffectName = null;
-    this.EffectFilePath = null;
-    this.Unk2 = new Vec3fT();
-    this.Unk3 = 0;
-    this.Unk4 = false;
+    this.WeatherName = null;
+    this.FilePath = null;
+    this.PositionalOffset = new Vec3fT();
+    this.KillDelayTime = 0;
+    this.IsFollowCamera = false;
   }
   public static pe_WeatherEffectT DeserializeFromBinary(byte[] fbBuffer) {
     return pe_WeatherEffect.GetRootAspe_WeatherEffect(new ByteBuffer(fbBuffer)).UnPack();
