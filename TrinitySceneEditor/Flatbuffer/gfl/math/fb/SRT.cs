@@ -20,12 +20,12 @@ public struct SRT : IFlatbufferObject
   public SRT __assign(int _i, ByteBuffer _bb) { __init(_i, _bb); return this; }
 
   public gfl.math.fb.Vector3f? Scale { get { int o = __p.__offset(4); return o != 0 ? (gfl.math.fb.Vector3f?)(new gfl.math.fb.Vector3f()).__assign(o + __p.bb_pos, __p.bb) : null; } }
-  public gfl.math.fb.Vector3f? Rotate { get { int o = __p.__offset(6); return o != 0 ? (gfl.math.fb.Vector3f?)(new gfl.math.fb.Vector3f()).__assign(o + __p.bb_pos, __p.bb) : null; } }
+  public gfl.math.fb.Vector3frot? Rotate { get { int o = __p.__offset(6); return o != 0 ? (gfl.math.fb.Vector3frot?)(new gfl.math.fb.Vector3frot()).__assign(o + __p.bb_pos, __p.bb) : null; } }
   public gfl.math.fb.Vector3f? Translate { get { int o = __p.__offset(8); return o != 0 ? (gfl.math.fb.Vector3f?)(new gfl.math.fb.Vector3f()).__assign(o + __p.bb_pos, __p.bb) : null; } }
 
   public static void StartSRT(FlatBufferBuilder builder) { builder.StartTable(3); }
   public static void AddScale(FlatBufferBuilder builder, Offset<gfl.math.fb.Vector3f> scaleOffset) { builder.AddStruct(0, scaleOffset.Value, 0); }
-  public static void AddRotate(FlatBufferBuilder builder, Offset<gfl.math.fb.Vector3f> rotateOffset) { builder.AddStruct(1, rotateOffset.Value, 0); }
+  public static void AddRotate(FlatBufferBuilder builder, Offset<gfl.math.fb.Vector3frot> rotateOffset) { builder.AddStruct(1, rotateOffset.Value, 0); }
   public static void AddTranslate(FlatBufferBuilder builder, Offset<gfl.math.fb.Vector3f> translateOffset) { builder.AddStruct(2, translateOffset.Value, 0); }
   public static Offset<gfl.math.fb.SRT> EndSRT(FlatBufferBuilder builder) {
     int o = builder.EndTable();
@@ -45,7 +45,7 @@ public struct SRT : IFlatbufferObject
     if (_o == null) return default(Offset<gfl.math.fb.SRT>);
     StartSRT(builder);
     AddScale(builder, gfl.math.fb.Vector3f.Pack(builder, _o.Scale));
-    AddRotate(builder, gfl.math.fb.Vector3f.Pack(builder, _o.Rotate));
+    AddRotate(builder, gfl.math.fb.Vector3frot.Pack(builder, _o.Rotate));
     AddTranslate(builder, gfl.math.fb.Vector3f.Pack(builder, _o.Translate));
     return EndSRT(builder);
   }
@@ -54,12 +54,12 @@ public struct SRT : IFlatbufferObject
 public partial class SRTT
 {
   public gfl.math.fb.Vector3fT Scale { get; set; }
-  public gfl.math.fb.Vector3fT Rotate { get; set; }
+  public gfl.math.fb.Vector3frotT Rotate { get; set; }
   public gfl.math.fb.Vector3fT Translate { get; set; }
 
   public SRTT() {
     this.Scale = new gfl.math.fb.Vector3fT();
-    this.Rotate = new gfl.math.fb.Vector3fT();
+    this.Rotate = new gfl.math.fb.Vector3frotT();
     this.Translate = new gfl.math.fb.Vector3fT();
   }
 }

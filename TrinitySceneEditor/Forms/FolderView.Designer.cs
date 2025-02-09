@@ -35,6 +35,7 @@
             Button_Revert_File_Changes = new Button();
             Button_Open_File = new Button();
             checkBox_load_Recursive = new CheckBox();
+            checkBox_convert_Rotation = new CheckBox();
             tableLayoutPanel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             SuspendLayout();
@@ -74,23 +75,25 @@
             tableLayoutPanel2.Controls.Add(Button_Revert_File_Changes, 0, 3);
             tableLayoutPanel2.Controls.Add(Button_Open_File, 0, 2);
             tableLayoutPanel2.Controls.Add(checkBox_load_Recursive, 0, 1);
+            tableLayoutPanel2.Controls.Add(checkBox_convert_Rotation, 0, 5);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(483, 2);
             tableLayoutPanel2.Margin = new Padding(3, 2, 3, 2);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 6;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 36.363636F));
+            tableLayoutPanel2.RowCount = 7;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 36.36232F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
             tableLayoutPanel2.RowStyles.Add(new RowStyle());
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 63.636364F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle());
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 63.6376839F));
             tableLayoutPanel2.Size = new Size(214, 334);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // Button_Save_Changed_Files
             // 
-            Button_Save_Changed_Files.Location = new Point(3, 164);
+            Button_Save_Changed_Files.Location = new Point(3, 155);
             Button_Save_Changed_Files.Name = "Button_Save_Changed_Files";
             Button_Save_Changed_Files.Size = new Size(125, 23);
             Button_Save_Changed_Files.TabIndex = 2;
@@ -100,7 +103,7 @@
             // 
             // Button_Revert_File_Changes
             // 
-            Button_Revert_File_Changes.Location = new Point(3, 135);
+            Button_Revert_File_Changes.Location = new Point(3, 126);
             Button_Revert_File_Changes.Name = "Button_Revert_File_Changes";
             Button_Revert_File_Changes.Size = new Size(82, 23);
             Button_Revert_File_Changes.TabIndex = 1;
@@ -110,7 +113,7 @@
             // 
             // Button_Open_File
             // 
-            Button_Open_File.Location = new Point(3, 108);
+            Button_Open_File.Location = new Point(3, 99);
             Button_Open_File.Margin = new Padding(3, 2, 3, 2);
             Button_Open_File.Name = "Button_Open_File";
             Button_Open_File.Size = new Size(82, 22);
@@ -122,13 +125,24 @@
             // checkBox_load_Recursive
             // 
             checkBox_load_Recursive.AutoSize = true;
-            checkBox_load_Recursive.Location = new Point(3, 84);
+            checkBox_load_Recursive.Location = new Point(3, 75);
             checkBox_load_Recursive.Name = "checkBox_load_Recursive";
             checkBox_load_Recursive.Size = new Size(116, 19);
             checkBox_load_Recursive.TabIndex = 3;
             checkBox_load_Recursive.Text = "Load SubScenes?";
             checkBox_load_Recursive.UseVisualStyleBackColor = true;
             checkBox_load_Recursive.CheckedChanged += checkBox_load_Recursive_CheckedChanged;
+            // 
+            // checkBox_convert_Rotation
+            // 
+            checkBox_convert_Rotation.AutoSize = true;
+            checkBox_convert_Rotation.Location = new Point(3, 184);
+            checkBox_convert_Rotation.Name = "checkBox_convert_Rotation";
+            checkBox_convert_Rotation.Size = new Size(157, 19);
+            checkBox_convert_Rotation.TabIndex = 4;
+            checkBox_convert_Rotation.Text = "convert Rotation to Deg?";
+            checkBox_convert_Rotation.UseVisualStyleBackColor = true;
+            checkBox_convert_Rotation.CheckedChanged += checkBox_convert_Rotation_CheckedChanged;
             // 
             // FolderView
             // 
@@ -154,5 +168,6 @@
         private Button Button_Revert_File_Changes;
         private Button Button_Save_Changed_Files;
         private CheckBox checkBox_load_Recursive;
+        private CheckBox checkBox_convert_Rotation;
     }
 }

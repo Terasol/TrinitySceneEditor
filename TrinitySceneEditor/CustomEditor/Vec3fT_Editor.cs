@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Design;
 using TrinitySceneEditor.CustomEditor;
+using TrinitySceneEditor.Forms;
 
 [Editor(typeof(Vec3fT_Editor), typeof(UITypeEditor))]
 [TypeConverter(typeof(ExpandableObjectConverter))]
@@ -22,8 +23,19 @@ namespace gfl.math.fb
             return $"X: {X}; Y: {Y}; Z:{Z}";
         }
     }
+    [Editor(typeof(Vec3fT_Editor), typeof(UITypeEditor))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
+    public partial class Vector3frotT
+    {
+        public override string ToString()
+        {
+            if (Startup.Settings.Convert_Rad_to_Degree)
+                return $"X: {TrinitySceneEditor.Math.ConvertRadiansToDegrees(X)}; Y: {TrinitySceneEditor.Math.ConvertRadiansToDegrees(Y)}; Z:{TrinitySceneEditor.Math.ConvertRadiansToDegrees(Z)}";
+            else
+                return $"X: {X}; Y: {Y}; Z:{Z}";
+        }
+    }
 }
-
 namespace TrinitySceneEditor.CustomEditor
 {
     class Vec3fT_Editor : UITypeEditor

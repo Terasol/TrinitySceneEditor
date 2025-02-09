@@ -9,6 +9,7 @@ namespace TrinitySceneEditor
         public string last_save_Folder { get; set; }
         public Mode Mode { get; set; }
         public bool Load_Scenes_Recursive { get; set; }
+        public bool Convert_Rad_to_Degree { get; set; }
         public Settings()
         {
             last_opened_file = string.Empty;

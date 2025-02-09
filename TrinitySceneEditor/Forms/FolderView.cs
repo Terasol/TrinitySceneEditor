@@ -10,6 +10,7 @@ namespace TrinitySceneEditor.Forms
         {
             InitializeComponent();
             checkBox_load_Recursive.Checked = Startup.Settings.Load_Scenes_Recursive;
+            checkBox_convert_Rotation.Checked = Startup.Settings.Convert_Rad_to_Degree;
             if (Startup.Settings.Mode == Mode.Folder)
             {
                 treeView1.Nodes.Add($"Loading Files in {Startup.Settings.last_opened_folder}");
@@ -189,6 +190,11 @@ namespace TrinitySceneEditor.Forms
         private void checkBox_load_Recursive_CheckedChanged(object sender, EventArgs e)
         {
             Startup.Settings.Load_Scenes_Recursive = checkBox_load_Recursive.Checked;
+        }
+
+        private void checkBox_convert_Rotation_CheckedChanged(object sender, EventArgs e)
+        {
+            Startup.Settings.Convert_Rad_to_Degree = checkBox_convert_Rotation.Checked;
         }
 
         private void Button_Save_Changed_Files_Click(object sender, EventArgs e)
