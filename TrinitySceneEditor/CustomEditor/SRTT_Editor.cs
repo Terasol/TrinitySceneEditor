@@ -11,6 +11,18 @@ public partial class SRTT
         return $"S: {{{Scale}}}; R: {{{Rotation}}}; T:{{{Translation}}}";
     }
 }
+namespace gfl.math.fb
+{
+    [Editor(typeof(SRTT_Editor), typeof(UITypeEditor))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
+    public partial class SRTT
+    {
+        public override string ToString()
+        {
+            return $"S: {{{Scale}}}; R: {{{Rotate}}}; T:{{{Translate}}}";
+        }
+    }
+}
 
 namespace TrinitySceneEditor.CustomEditor
 {

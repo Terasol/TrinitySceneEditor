@@ -142,10 +142,37 @@ namespace TrinitySceneEditor.Forms
                 _propertyGridSaveButton.Visible = false;
             }
         }
+        private static Dictionary<string, string> mapping = new()
+        {
+            {"pe_AudioComponent", "gfl.audio.fb.AudioComponentT" },
+            {"pe_AudioGeneratorComponent", "gfl.audio.fb.AudioGeneratorComponentT" },
+            {"pe_AudioJointComponent", "gfl.audio.fb.AudioJointComponentT" },
+            {"pe_AudioPlayerComponent", "gfl.audio.fb.AudioPlayerComponentT" },
+            {"pe_ParticleAudioComponent", "gfl.audio.fb.ParticleAudioComponentT" },
+            {"SubScene", "gfl.scene.fb.SubSceneT" },
+        };
+
+        internal static Type? Get_type(string Type_name)
+        {
+            Type? t = null;
+            if (mapping.ContainsKey(Type_name))
+            {
+                t = Type.GetType(mapping[Type_name]);
+            }
+            else if (Type_name.StartsWith("trinity_"))
+            {
+                t = Type.GetType($"gfl.scene.fb.{Type_name.Replace("trinity_", "")}T");
+            }
+            else
+            {
+                t = Type.GetType($"Titan.TrinityScene.{Type_name}T");
+            }
+            return t;
+        }
 
         internal static object? Deserelize_SceneEntryT(SceneEntryT se)
         {
-            Type? type = Type.GetType($"Titan.TrinityScene.{se.TypeName}T");
+            Type? type = Get_type(se.TypeName);
             if (type != null)
             {
                 MethodInfo? Deserialize = type.GetMethod("DeserializeFromBinary", BindingFlags.Static | BindingFlags.Public);
@@ -186,7 +213,7 @@ namespace TrinitySceneEditor.Forms
             {
                 if (sceneView.SelectedNode.Tag is EntryFileMapping entry)
                 {
-                    Type? type = Type.GetType($"Titan.TrinityScene.{entry.SceneEntryT.TypeName}T");
+                    Type? type = Get_type(entry.SceneEntryT.TypeName);
                     if (type != null)
                     {
                         MethodInfo? Serialize = type.GetMethod("SerializeToBinary", BindingFlags.Instance | BindingFlags.Public);

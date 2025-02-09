@@ -11,6 +11,18 @@ public partial class Vec3fT
         return $"X: {X}; Y: {Y}; Z:{Z}";
     }
 }
+namespace gfl.math.fb
+{
+    [Editor(typeof(Vec3fT_Editor), typeof(UITypeEditor))]
+    [TypeConverter(typeof(ExpandableObjectConverter))]
+    public partial class Vector3fT
+    {
+        public override string ToString()
+        {
+            return $"X: {X}; Y: {Y}; Z:{Z}";
+        }
+    }
+}
 
 namespace TrinitySceneEditor.CustomEditor
 {
