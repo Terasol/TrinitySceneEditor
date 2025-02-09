@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using gfl.scene.fb;
+using System.Reflection;
 using Titan.TrinityScene;
 
 namespace TrinitySceneEditor.Forms
@@ -121,13 +122,18 @@ namespace TrinitySceneEditor.Forms
             {
                 propertyGrid1.SelectedObject = Deserelize_SceneEntryT(entry.SceneEntryT);
                 _propertyGridSaveButton.Visible = true;
-                if (propertyGrid1.SelectedObject is SubSceneT)
+                if (propertyGrid1.SelectedObject is gfl.scene.fb.SubSceneT)
                     _propertyGridOpenSubSceneButton.Visible = true;
                 else
                     _propertyGridOpenSubSceneButton.Visible = false;
                 if (propertyGrid1.SelectedObject is trinity_ObjectTemplateT ot)
                 {
                     propertyGrid1.SelectedObject = trinity_SceneObjectT.DeserializeFromBinary(ot.ObjectBytes.ToArray());
+                    _propertyGridSaveButton.Visible = false;
+                }
+                else if (propertyGrid1.SelectedObject is ObjectTemplateT ot2)
+                {
+                    propertyGrid1.SelectedObject = SceneObjectT.DeserializeFromBinary(ot2.EntityData.ToArray());
                     _propertyGridSaveButton.Visible = false;
                 }
             }
@@ -196,9 +202,9 @@ namespace TrinitySceneEditor.Forms
                     if (entry.SceneEntryT.TypeName == "SubScene")
                     {
                         var subscene = Deserelize_SceneEntryT(entry.SceneEntryT);
-                        if (subscene is SubSceneT)
+                        if (subscene is Titan.TrinityScene.SubSceneT)
                         {
-                            SceneFile? sf = Filemanager.OpenFile(((SubSceneT)subscene).FilePath, OpenScene);
+                            SceneFile? sf = Filemanager.OpenFile(((Titan.TrinityScene.SubSceneT)subscene).FilePath, OpenScene);
                             if (sf != null)
                             {
                                 SceneEditor sv = new(sf);
