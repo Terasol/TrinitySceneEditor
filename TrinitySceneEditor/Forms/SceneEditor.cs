@@ -32,15 +32,18 @@ namespace TrinitySceneEditor.Forms
             InitializeComponent();
             _propertyGridSaveButton = new("💾", null, new EventHandler(PropertyGrid_Butto_Save_Click), "Save")
             {
-                Visible = false
+                Visible = false,
+                ToolTipText = "Save Scene Entry"
             };
             _propertyGridOpenSubSceneButton = new("📂", null, new EventHandler(PropertyGrid_Butto_OpenSubScene_Click), "Open")
             {
-                Visible = false
+                Visible = false,
+                ToolTipText = "Open SubScene"
             };
             _propertyGridswitchOTButton = new("⟲", null, new EventHandler(PropertyGrid_Butto_SwitchObjectTemplate_Click), "Switch Object Tempalte")
             {
-                Visible = false
+                Visible = false,
+                ToolTipText = "Switch Object Tempalte"
             };
             foreach (Control control in propertyGrid1.Controls)
             {
@@ -215,9 +218,9 @@ namespace TrinitySceneEditor.Forms
                     if (entry.SceneEntryT.TypeName == "SubScene")
                     {
                         var subscene = Deserelize_SceneEntryT(entry.SceneEntryT);
-                        if (subscene is Titan.TrinityScene.SubSceneT)
+                        if (subscene is gfl.scene.fb.SubSceneT)
                         {
-                            SceneFile? sf = Filemanager.OpenFile(((Titan.TrinityScene.SubSceneT)subscene).FilePath, OpenScene);
+                            SceneFile? sf = Filemanager.OpenFile(((gfl.scene.fb.SubSceneT)subscene).Name, OpenScene);
                             if (sf != null)
                             {
                                 SceneEditor sv = new(sf);
