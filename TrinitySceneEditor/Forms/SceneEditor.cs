@@ -10,6 +10,8 @@ namespace TrinitySceneEditor.Forms
 
         readonly ToolStripButton _propertyGridSaveButton;
         readonly ToolStripButton _propertyGridOpenSubSceneButton;
+        readonly ToolStripButton _propertyGridswitchOTButton;
+        bool show_Objecttemplate = false;
         Search? Search;
 
         public SceneEditor(string Filepath) : this()
@@ -36,12 +38,17 @@ namespace TrinitySceneEditor.Forms
             {
                 Visible = false
             };
+            _propertyGridswitchOTButton = new("⟲", null, new EventHandler(PropertyGrid_Butto_SwitchObjectTemplate_Click), "Switch Object Tempalte")
+            {
+                Visible = false
+            };
             foreach (Control control in propertyGrid1.Controls)
             {
                 if (control is ToolStrip toolStrip)
                 {
                     toolStrip.Items.Add(_propertyGridSaveButton);
                     toolStrip.Items.Add(_propertyGridOpenSubSceneButton);
+                    toolStrip.Items.Add(_propertyGridswitchOTButton);
                 }
             }
         }
@@ -115,40 +122,41 @@ namespace TrinitySceneEditor.Forms
             }
         }
 
-        private void sceneView_AfterSelect(object sender, TreeViewEventArgs e)
+        private void sceneView_AfterSelect(object? sender, TreeViewEventArgs? e)
         {
 
             if (sceneView.SelectedNode.Tag is EntryFileMapping entry)
             {
                 propertyGrid1.SelectedObject = Deserelize_SceneEntryT(entry.SceneEntryT);
                 _propertyGridSaveButton.Visible = true;
+                _propertyGridswitchOTButton.Visible = false;
                 if (propertyGrid1.SelectedObject is gfl.scene.fb.SubSceneT)
                     _propertyGridOpenSubSceneButton.Visible = true;
                 else
                     _propertyGridOpenSubSceneButton.Visible = false;
-                if (propertyGrid1.SelectedObject is trinity_ObjectTemplateT ot)
+                if ((propertyGrid1.SelectedObject is ObjectTemplateT ot2))
                 {
-                    propertyGrid1.SelectedObject = trinity_SceneObjectT.DeserializeFromBinary(ot.ObjectBytes.ToArray());
-                    _propertyGridSaveButton.Visible = false;
-                }
-                else if (propertyGrid1.SelectedObject is ObjectTemplateT ot2)
-                {
-                    propertyGrid1.SelectedObject = SceneObjectT.DeserializeFromBinary(ot2.EntityData.ToArray());
-                    _propertyGridSaveButton.Visible = false;
+                    if (!show_Objecttemplate)
+                    {
+                        propertyGrid1.SelectedObject = Deserelize_SceneEntryT(ot2.EntityType, [.. ot2.EntityData]);
+                    }
+                    _propertyGridswitchOTButton.Visible = true;
                 }
             }
             else if (sceneView.SelectedNode.Tag is trinity_SceneT)
             {
                 propertyGrid1.SelectedObject = sceneView.SelectedNode.Tag;
                 _propertyGridSaveButton.Visible = false;
+                _propertyGridswitchOTButton.Visible = false;
             }
             else
             {
                 propertyGrid1.SelectedObject = null;
                 _propertyGridSaveButton.Visible = false;
+                _propertyGridswitchOTButton.Visible = false;
             }
         }
-        private static Dictionary<string, string> mapping = new()
+        private static readonly Dictionary<string, string> mapping = new()
         {
             {"pe_AudioComponent", "gfl.audio.fb.AudioComponentT" },
             {"pe_AudioGeneratorComponent", "gfl.audio.fb.AudioGeneratorComponentT" },
@@ -180,13 +188,18 @@ namespace TrinitySceneEditor.Forms
 
         internal static object? Deserelize_SceneEntryT(SceneEntryT se)
         {
-            Type? type = Get_type(se.TypeName);
+            return Deserelize_SceneEntryT(se.TypeName, [.. se.NestedType]);
+        }
+
+        internal static object? Deserelize_SceneEntryT(string type_name, byte[] data)
+        {
+            Type? type = Get_type(type_name);
             if (type != null)
             {
                 MethodInfo? Deserialize = type.GetMethod("DeserializeFromBinary", BindingFlags.Static | BindingFlags.Public);
                 if (Deserialize != null)
                 {
-                    var a = Deserialize.Invoke(null, new object[] { se.NestedType.ToArray() });
+                    var a = Deserialize.Invoke(null, [data]);
                     return a;
                 }
             }
@@ -215,6 +228,13 @@ namespace TrinitySceneEditor.Forms
                 }
             }
         }
+
+        private void PropertyGrid_Butto_SwitchObjectTemplate_Click(object? sender, EventArgs e)
+        {
+            show_Objecttemplate = !show_Objecttemplate;
+            sceneView_AfterSelect(null, null);
+
+        }
         private void PropertyGrid_Butto_Save_Click(object? sender, EventArgs e)
         {
             if (sceneView.SelectedNode != null && OpenScene != null)
@@ -224,16 +244,44 @@ namespace TrinitySceneEditor.Forms
                     Type? type = Get_type(entry.SceneEntryT.TypeName);
                     if (type != null)
                     {
-                        MethodInfo? Serialize = type.GetMethod("SerializeToBinary", BindingFlags.Instance | BindingFlags.Public);
-                        if (Serialize != null)
+                        if (entry.SceneEntryT.TypeName == "trinity_ObjectTemplate" && !show_Objecttemplate)
                         {
-                            var output = Serialize.Invoke(propertyGrid1.SelectedObject, null);
-                            if (output is byte[] data)
+                            ObjectTemplateT? ot = (ObjectTemplateT?)Deserelize_SceneEntryT(entry.SceneEntryT);
+                            if (ot != null)
                             {
-                                if (!entry.SceneEntryT.NestedType.ToArray().SequenceEqual(data))
+                                Type? type2 = Get_type(ot.EntityType);
+
+                                if (type2 != null)
                                 {
-                                    entry.SceneEntryT.NestedType = data.ToList();
-                                    entry.SceneFile.isChanged = true;
+                                    MethodInfo? Serialize = type2.GetMethod("SerializeToBinary", BindingFlags.Instance | BindingFlags.Public);
+                                    if (Serialize != null)
+                                    {
+                                        var output = Serialize.Invoke(propertyGrid1.SelectedObject, null);
+
+                                        if (output is byte[] data)
+                                        {
+                                            ot.EntityData = [.. data];
+                                            entry.SceneEntryT.NestedType = [.. ot.SerializeToBinary()];
+                                            entry.SceneFile.isChanged = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MethodInfo? Serialize = type.GetMethod("SerializeToBinary", BindingFlags.Instance | BindingFlags.Public);
+                            if (Serialize != null)
+                            {
+                                var output = Serialize.Invoke(propertyGrid1.SelectedObject, null);
+
+                                if (output is byte[] data)
+                                {
+                                    if (!entry.SceneEntryT.NestedType.ToArray().SequenceEqual(data))
+                                    {
+                                        entry.SceneEntryT.NestedType = [.. data];
+                                        entry.SceneFile.isChanged = true;
+                                    }
                                 }
                             }
                         }
