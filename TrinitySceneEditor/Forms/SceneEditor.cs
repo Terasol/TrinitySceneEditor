@@ -56,6 +56,19 @@ namespace TrinitySceneEditor.Forms
             }
         }
 
+        private void Open_File(SceneFile SceneFile)
+        {
+            OpenScene = SceneFile;
+            if (OpenScene != null)
+            {
+                sceneView.Nodes.Clear();
+                sceneView.Nodes.Add(OpenScene.GetRootTreeNode());
+                if (Startup.Settings.Mode == Mode.Single_File)
+                    saveTRSOT.Visible = true;
+            }
+        }
+
+        //delegate for Search Window
         public void SelectNode(TreeNode Node)
         {
             if (sceneView.InvokeRequired)
@@ -66,18 +79,6 @@ namespace TrinitySceneEditor.Forms
             else
             {
                 sceneView.SelectedNode = Node;
-            }
-        }
-
-        private void Open_File(SceneFile SceneFile)
-        {
-            OpenScene = SceneFile;
-            if (OpenScene != null)
-            {
-                sceneView.Nodes.Clear();
-                sceneView.Nodes.Add(OpenScene.GetRootTreeNode());
-                if (Startup.Settings.Mode == Mode.Single_File)
-                    saveTRSOT.Visible = true;
             }
         }
 
@@ -107,21 +108,6 @@ namespace TrinitySceneEditor.Forms
             if (OpenScene != null)
             {
                 Filemanager.SaveFile(OpenScene, CloseFile: false);
-            }
-        }
-
-        private void sceneView_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                Point ClickPoint = new(e.X, e.Y);
-                TreeNode ClickNode = sceneView.GetNodeAt(ClickPoint);
-                sceneView.SelectedNode = ClickNode;
-                if (ClickNode == null) return;
-
-                Point ScreenPoint = sceneView.PointToScreen(ClickPoint);
-                Point FormPoint = this.PointToClient(ScreenPoint);
-                sceneContext.Show(this, FormPoint);
             }
         }
 
@@ -218,9 +204,9 @@ namespace TrinitySceneEditor.Forms
                     if (entry.SceneEntryT.TypeName == "SubScene")
                     {
                         var subscene = Deserelize_SceneEntryT(entry.SceneEntryT);
-                        if (subscene is gfl.scene.fb.SubSceneT)
+                        if (subscene is gfl.scene.fb.SubSceneT subsceneT)
                         {
-                            SceneFile? sf = Filemanager.OpenFile(((gfl.scene.fb.SubSceneT)subscene).Name, OpenScene);
+                            SceneFile? sf = Filemanager.OpenFile(subsceneT.Name, OpenScene);
                             if (sf != null)
                             {
                                 SceneEditor sv = new(sf);
@@ -249,10 +235,10 @@ namespace TrinitySceneEditor.Forms
                     {
                         if (entry.SceneEntryT.TypeName == "trinity_ObjectTemplate" && !show_Objecttemplate)
                         {
-                            ObjectTemplateT? ot = (ObjectTemplateT?)Deserelize_SceneEntryT(entry.SceneEntryT);
-                            if (ot != null)
+                            var ot = Deserelize_SceneEntryT(entry.SceneEntryT);
+                            if (ot is ObjectTemplateT ott)
                             {
-                                Type? type2 = Get_type(ot.EntityType);
+                                Type? type2 = Get_type(ott.EntityType);
 
                                 if (type2 != null)
                                 {
@@ -263,8 +249,8 @@ namespace TrinitySceneEditor.Forms
 
                                         if (output is byte[] data)
                                         {
-                                            ot.EntityData = [.. data];
-                                            entry.SceneEntryT.NestedType = [.. ot.SerializeToBinary()];
+                                            ott.EntityData = [.. data];
+                                            entry.SceneEntryT.NestedType = [.. ott.SerializeToBinary()];
                                             entry.SceneFile.isChanged = true;
                                         }
                                     }

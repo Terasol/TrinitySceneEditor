@@ -35,7 +35,7 @@
             saveTRSOT = new ToolStripMenuItem();
             closeTRSOT = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
-            toolStripMenuItem2 = new ToolStripMenuItem();
+            openSearch = new ToolStripMenuItem();
             sceneContext = new ContextMenuStrip(components);
             expandToolStripMenuItem = new ToolStripMenuItem();
             splitContainer1 = new SplitContainer();
@@ -90,17 +90,17 @@
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem2 });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { openSearch });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(54, 20);
             toolStripMenuItem1.Text = "Search";
             // 
             // toolStripMenuItem2
             // 
-            toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(180, 22);
-            toolStripMenuItem2.Text = "open Search";
-            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
+            openSearch.Name = "openSearch";
+            openSearch.Size = new Size(180, 22);
+            openSearch.Text = "open Search";
+            openSearch.Click += toolStripMenuItem2_Click;
             // 
             // sceneContext
             // 
@@ -184,6 +184,6 @@
         private TreeView sceneView;
         private PropertyGrid propertyGrid1;
         private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem toolStripMenuItem2;
+        private ToolStripMenuItem openSearch;
     }
 }
