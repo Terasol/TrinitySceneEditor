@@ -19,9 +19,6 @@ namespace TrinitySceneEditor.CustomEditor
 {
     class unknown_sceneObject_dataT_Editor : UITypeEditor
     {
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
-        {
-            return UITypeEditorEditStyle.None;
-        }
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context) => UITypeEditorEditStyle.None;
     }
 }

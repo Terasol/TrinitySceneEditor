@@ -28,9 +28,6 @@ namespace TrinitySceneEditor.CustomEditor
 {
     class SRTT_Editor : UITypeEditor
     {
-        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext context)
-        {
-            return UITypeEditorEditStyle.None;
-        }
+        public override UITypeEditorEditStyle GetEditStyle(ITypeDescriptorContext? context) => UITypeEditorEditStyle.None;
     }
 }

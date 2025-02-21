@@ -1,47 +1,30 @@
-﻿using System.Text.Json;
-
-namespace TrinitySceneEditor.Forms
+﻿namespace TrinitySceneEditor.Forms
 {
     public partial class Startup : Form
     {
-        public static Settings Settings = new();
         public Startup()
         {
             InitializeComponent();
-            LoadSettingsFromFile();
+            LoadSettings();
             textBox1.TextChanged += TextBox1_TextChanged;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBox1.SelectedIndexChanged += ComboBox1_SelectedIndexChanged;
         }
 
-        private void comboBox1_SelectedIndexChanged(object? sender, EventArgs e)
+        private void ComboBox1_SelectedIndexChanged(object? sender, EventArgs e)
         {
             UpdateSettings();
             ProcessSettings();
         }
 
-        private void LoadSettingsFromFile()
+        private void LoadSettings()
         {
-            if (File.Exists("settings.json"))
-            {
-                Settings? s = JsonSerializer.Deserialize<Settings>(File.ReadAllText("settings.json"));
-                if (s != null) Settings = s;
-            }
+            Settings.LoadSettings();
             ProcessSettings();
         }
 
         private void Startup_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveSettingsToFile();
-        }
-
-        public static void SaveSettingsToFile()
-        {
-            JsonSerializerOptions options = new()
-            {
-                WriteIndented = true
-            };
-            string json = JsonSerializer.Serialize(Settings, options);
-            File.WriteAllText("settings.json", json);
+            Settings.SaveSettingsToFile();
         }
 
         private void UpdateSettings()
@@ -49,13 +32,13 @@ namespace TrinitySceneEditor.Forms
             switch (Settings.Mode)
             {
                 case Mode.Single_File:
-                    Settings.last_opened_file = textBox1.Text;
+                    Settings.Last_opened_file = textBox1.Text;
                     break;
                 case Mode.Folder:
-                    Settings.last_opened_folder = textBox1.Text;
+                    Settings.Last_opened_folder = textBox1.Text;
                     break;
                 case Mode.RomFS:
-                    Settings.last_opened_RomFS = textBox1.Text;
+                    Settings.Last_opened_RomFS = textBox1.Text;
                     break;
                 default:
                     break;
@@ -70,13 +53,13 @@ namespace TrinitySceneEditor.Forms
                 case Mode.Single_File:
                     Label_File_Path.Text = "Scene File Path:";
                     comboBox1.SelectedIndex = 0;
-                    textBox1.Text = Settings.last_opened_file;
+                    textBox1.Text = Settings.Last_opened_file;
                     tableLayoutPanel1.RowStyles[2].SizeType = SizeType.Absolute;
                     tableLayoutPanel1.RowStyles[2].Height = 0;
                     tableLayoutPanel1.RowStyles[3].SizeType = SizeType.Absolute;
                     tableLayoutPanel1.RowStyles[3].Height = 0;
                     button_load.Text = "Open Scene File";
-                    if (File.Exists(Settings.last_opened_file))
+                    if (File.Exists(Settings.Last_opened_file))
                     {
                         button_load.Enabled = true;
                     }
@@ -88,13 +71,13 @@ namespace TrinitySceneEditor.Forms
                 case Mode.Folder:
                     Label_File_Path.Text = "Folder with Scene Files:";
                     comboBox1.SelectedIndex = 1;
-                    textBox1.Text = Settings.last_opened_folder;
+                    textBox1.Text = Settings.Last_opened_folder;
                     tableLayoutPanel1.RowStyles[2].SizeType = SizeType.Absolute;
                     tableLayoutPanel1.RowStyles[2].Height = 0;
                     tableLayoutPanel1.RowStyles[3].SizeType = SizeType.Absolute;
                     tableLayoutPanel1.RowStyles[3].Height = 0;
                     button_load.Text = "List all Scene Files in Folder";
-                    if (Directory.Exists(Settings.last_opened_folder))
+                    if (Directory.Exists(Settings.Last_opened_folder))
                     {
                         button_load.Enabled = true;
                     }
@@ -106,7 +89,7 @@ namespace TrinitySceneEditor.Forms
                 case Mode.RomFS:
                     Label_File_Path.Text = "Path for RomFS Dump:";
                     comboBox1.SelectedIndex = 2;
-                    textBox1.Text = Settings.last_opened_RomFS;
+                    textBox1.Text = Settings.Last_opened_RomFS;
                     tableLayoutPanel1.RowStyles[2].SizeType = SizeType.AutoSize;
                     tableLayoutPanel1.RowStyles[3].SizeType = SizeType.AutoSize;
                     bool can_load = true;
@@ -132,8 +115,8 @@ namespace TrinitySceneEditor.Forms
                         label_oodle_dll_status.ForeColor = Color.Red;
                         can_load = false;
                     }
-                    string trpfd = Path.Combine(Settings.last_opened_RomFS, "arc/data.trpfd");
-                    string trpfs = Path.Combine(Settings.last_opened_RomFS, "arc/data.trpfs");
+                    string trpfd = Path.Combine(Settings.Last_opened_RomFS, "arc/data.trpfd");
+                    string trpfs = Path.Combine(Settings.Last_opened_RomFS, "arc/data.trpfs");
                     if (!(File.Exists(trpfs) && File.Exists(trpfd)))
                     {
                         can_load = false;
@@ -227,7 +210,7 @@ namespace TrinitySceneEditor.Forms
             switch (Settings.Mode)
             {
                 case Mode.Single_File:
-                    SceneEditor sv = new(Settings.last_opened_file);
+                    SceneEditor sv = new(Settings.Last_opened_file);
                     sv.Show();
                     break;
                 case Mode.Folder:

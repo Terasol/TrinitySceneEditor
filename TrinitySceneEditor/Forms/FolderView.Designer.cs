@@ -131,7 +131,7 @@
             checkBox_load_Recursive.TabIndex = 3;
             checkBox_load_Recursive.Text = "Load SubScenes?";
             checkBox_load_Recursive.UseVisualStyleBackColor = true;
-            checkBox_load_Recursive.CheckedChanged += checkBox_load_Recursive_CheckedChanged;
+            checkBox_load_Recursive.CheckedChanged += CheckBox_load_Recursive_CheckedChanged;
             // 
             // checkBox_convert_Rotation
             // 
@@ -142,7 +142,7 @@
             checkBox_convert_Rotation.TabIndex = 4;
             checkBox_convert_Rotation.Text = "convert Rotation to Deg?";
             checkBox_convert_Rotation.UseVisualStyleBackColor = true;
-            checkBox_convert_Rotation.CheckedChanged += checkBox_convert_Rotation_CheckedChanged;
+            checkBox_convert_Rotation.CheckedChanged += CheckBox_convert_Rotation_CheckedChanged;
             // 
             // FolderView
             // 

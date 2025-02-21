@@ -1,5 +1,4 @@
 ﻿using Titan.TrinityScene;
-using TrinitySceneEditor.Forms;
 
 namespace TrinitySceneEditor
 {
@@ -25,12 +24,12 @@ namespace TrinitySceneEditor
         {
             this.Filepath = Filepath;
             Relative = Filepath;
-            if (Startup.Settings.Mode == Mode.Folder)
+            if (Settings.Mode == Mode.Folder)
             {
                 Filepath = Filepath.Replace("/", "\\");
-                Relative = Filepath.Replace(Startup.Settings.last_opened_folder + "\\", "");
+                Relative = Filepath.Replace(Settings.Last_opened_folder + "\\", "");
             }
-            else if (Startup.Settings.Mode == Mode.Single_File)
+            else if (Settings.Mode == Mode.Single_File)
             {
                 Relative = Path.GetFileName(Filepath);
             }
@@ -54,7 +53,7 @@ namespace TrinitySceneEditor
             {
                 TreeNode newnode = node.Nodes.Add(ent.TypeName);
                 newnode.Tag = new EntryFileMapping(this, ent);
-                if (ent.TypeName == "SubScene" && Startup.Settings.Load_Scenes_Recursive && Startup.Settings.Mode != Mode.Single_File)
+                if (ent.TypeName == "SubScene" && Settings.Load_Scenes_Recursive && Settings.Mode != Mode.Single_File)
                 {
                     SubSceneT ss = SubSceneT.DeserializeFromBinary(ent.NestedType.ToArray());
                     SceneFile? sub = Filemanager.OpenFile(ss.FilePath, this);

@@ -36,9 +36,9 @@
             toolStripTextBox_SearchValue = new ToolStripTextBox();
             toolStripButton_Search = new ToolStripButton();
             dataGridView1 = new DataGridView();
-            Name = new DataGridViewTextBoxColumn();
-            Value = new DataGridViewTextBoxColumn();
-            SceneFile = new DataGridViewTextBoxColumn();
+            Name_Colum = new DataGridViewTextBoxColumn();
+            Value_Colum = new DataGridViewTextBoxColumn();
+            SceneFile_Colum = new DataGridViewTextBoxColumn();
             toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
@@ -92,7 +92,7 @@
             dataGridView1.AllowUserToDeleteRows = false;
             dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Name, Value, SceneFile });
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Name_Colum, Value_Colum, SceneFile_Colum });
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(0, 25);
             dataGridView1.Name = "dataGridView1";
@@ -104,21 +104,21 @@
             // 
             // Name
             // 
-            Name.HeaderText = "Name";
-            Name.Name = "Name";
-            Name.ReadOnly = true;
+            Name_Colum.HeaderText = "Name";
+            Name_Colum.Name = "Name";
+            Name_Colum.ReadOnly = true;
             // 
             // Value
             // 
-            Value.HeaderText = "Value";
-            Value.Name = "Value";
-            Value.ReadOnly = true;
+            Value_Colum.HeaderText = "Value";
+            Value_Colum.Name = "Value";
+            Value_Colum.ReadOnly = true;
             // 
             // SceneFile
             // 
-            SceneFile.HeaderText = "SceneFile";
-            SceneFile.Name = "SceneFile";
-            SceneFile.ReadOnly = true;
+            SceneFile_Colum.HeaderText = "SceneFile";
+            SceneFile_Colum.Name = "SceneFile";
+            SceneFile_Colum.ReadOnly = true;
             // 
             // Search
             // 
@@ -144,8 +144,8 @@
         private ToolStripTextBox toolStripTextBox_SearchValue;
         private ToolStripButton toolStripButton_Search;
         private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn Name;
-        private DataGridViewTextBoxColumn Value;
-        private DataGridViewTextBoxColumn SceneFile;
+        private DataGridViewTextBoxColumn Name_Colum;
+        private DataGridViewTextBoxColumn Value_Colum;
+        private DataGridViewTextBoxColumn SceneFile_Colum;
     }
 }

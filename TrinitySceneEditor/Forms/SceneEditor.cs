@@ -63,7 +63,7 @@ namespace TrinitySceneEditor.Forms
             {
                 sceneView.Nodes.Clear();
                 sceneView.Nodes.Add(OpenScene.GetRootTreeNode());
-                if (Startup.Settings.Mode == Mode.Single_File)
+                if (Settings.Mode == Mode.Single_File)
                     saveTRSOT.Visible = true;
             }
         }
@@ -73,7 +73,7 @@ namespace TrinitySceneEditor.Forms
         {
             if (sceneView.InvokeRequired)
             {
-                Action safeWrite = delegate { SelectNode(Node); };
+                void safeWrite() { SelectNode(Node); }
                 sceneView.Invoke(safeWrite);
             }
             else
@@ -82,7 +82,7 @@ namespace TrinitySceneEditor.Forms
             }
         }
 
-        private void openTRSOT_Click(object sender, EventArgs e)
+        private void OpenTRSOT_Click(object sender, EventArgs e)
         {
             var ofd = new OpenFileDialog();
             if (ofd.ShowDialog() != DialogResult.OK) return;
@@ -94,16 +94,16 @@ namespace TrinitySceneEditor.Forms
             }
         }
 
-        private void closeTRSOT_Click(object sender, EventArgs e)
+        private void CloseTRSOT_Click(object sender, EventArgs e)
         {
-            if (Startup.Settings.Mode == Mode.Single_File && OpenScene != null)
+            if (Settings.Mode == Mode.Single_File && OpenScene != null)
             {
                 Filemanager.CloseFile(OpenScene);
             }
             Close();
         }
 
-        private void saveTRSOT_Click(object sender, EventArgs e)
+        private void SaveTRSOT_Click(object sender, EventArgs e)
         {
             if (OpenScene != null)
             {
@@ -111,7 +111,7 @@ namespace TrinitySceneEditor.Forms
             }
         }
 
-        private void sceneView_AfterSelect(object? sender, TreeViewEventArgs? e)
+        private void SceneView_AfterSelect(object? sender, TreeViewEventArgs? e)
         {
 
             if (sceneView.SelectedNode.Tag is EntryFileMapping entry)
@@ -159,20 +159,18 @@ namespace TrinitySceneEditor.Forms
 
         internal static Type? Get_type(string Type_name)
         {
-            Type? t = null;
-            if (mapping.ContainsKey(Type_name))
+            if (mapping.TryGetValue(Type_name, out string? value))
             {
-                t = Type.GetType(mapping[Type_name]);
+                return Type.GetType(value);
             }
             else if (Type_name.StartsWith("trinity_"))
             {
-                t = Type.GetType($"gfl.scene.fb.{Type_name.Replace("trinity_", "")}T");
+                return Type.GetType($"gfl.scene.fb.{Type_name.Replace("trinity_", "")}T");
             }
             else
             {
-                t = Type.GetType($"Titan.TrinityScene.{Type_name}T");
+                return Type.GetType($"Titan.TrinityScene.{Type_name}T");
             }
-            return t;
         }
 
         internal static object? Deserelize_SceneEntryT(SceneEntryT se)
@@ -221,7 +219,7 @@ namespace TrinitySceneEditor.Forms
         private void PropertyGrid_Butto_SwitchObjectTemplate_Click(object? sender, EventArgs e)
         {
             show_Objecttemplate = !show_Objecttemplate;
-            sceneView_AfterSelect(null, null);
+            SceneView_AfterSelect(null, null);
 
         }
         private void PropertyGrid_Butto_Save_Click(object? sender, EventArgs e)
@@ -279,7 +277,7 @@ namespace TrinitySceneEditor.Forms
             }
         }
 
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        private void ToolStripMenuItem2_Click(object sender, EventArgs e)
         {
             if (Search != null)
             {
@@ -294,10 +292,7 @@ namespace TrinitySceneEditor.Forms
 
         private void SceneEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (Search != null)
-            {
-                Search.Close();
-            }
+            Search?.Close();
         }
     }
 }

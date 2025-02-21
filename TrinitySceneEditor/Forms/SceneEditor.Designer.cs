@@ -71,7 +71,7 @@
             openTRSOT.Size = new Size(175, 22);
             openTRSOT.Text = "Open Scene Object";
             openTRSOT.Visible = false;
-            openTRSOT.Click += openTRSOT_Click;
+            openTRSOT.Click += OpenTRSOT_Click;
             // 
             // saveTRSOT
             // 
@@ -79,14 +79,14 @@
             saveTRSOT.Size = new Size(175, 22);
             saveTRSOT.Text = "Save Scene Object";
             saveTRSOT.Visible = false;
-            saveTRSOT.Click += saveTRSOT_Click;
+            saveTRSOT.Click += SaveTRSOT_Click;
             // 
             // closeTRSOT
             // 
             closeTRSOT.Name = "closeTRSOT";
             closeTRSOT.Size = new Size(175, 22);
             closeTRSOT.Text = "Close Scene Object";
-            closeTRSOT.Click += closeTRSOT_Click;
+            closeTRSOT.Click += CloseTRSOT_Click;
             // 
             // toolStripMenuItem1
             // 
@@ -100,7 +100,7 @@
             openSearch.Name = "openSearch";
             openSearch.Size = new Size(180, 22);
             openSearch.Text = "open Search";
-            openSearch.Click += toolStripMenuItem2_Click;
+            openSearch.Click += ToolStripMenuItem2_Click;
             // 
             // sceneContext
             // 
@@ -138,7 +138,7 @@
             sceneView.Name = "sceneView";
             sceneView.Size = new Size(180, 426);
             sceneView.TabIndex = 3;
-            sceneView.AfterSelect += sceneView_AfterSelect;
+            sceneView.AfterSelect += SceneView_AfterSelect;
             // 
             // propertyGrid1
             // 

@@ -1,10 +1,8 @@
-﻿using TrinitySceneEditor.Forms;
-
-namespace TrinitySceneEditor
+﻿namespace TrinitySceneEditor
 {
     static class Filemanager
     {
-        private static readonly List<SceneFile> Files = new();
+        private static readonly List<SceneFile> Files = [];
 
         public static int ChangedFiles => Files.Where(file => file.isChanged).Count();
 
@@ -16,7 +14,7 @@ namespace TrinitySceneEditor
 
             if (result != null) return result;
 
-            if (RomFS != null && Startup.Settings.Mode == Mode.RomFS)
+            if (RomFS != null && Settings.Mode == Mode.RomFS)
             {
                 byte[] f = RomFS.GetFile(path);
                 if (f == null || f.Length == 0) return null;
@@ -46,7 +44,7 @@ namespace TrinitySceneEditor
             {
                 string new_path = Path.GetFullPath(relative_path).Replace(Environment.CurrentDirectory, "");
                 new_path = new_path.Replace("\\", "/");
-                if (new_path.StartsWith("/")) new_path = new_path.Remove(0, 1);
+                if (new_path.StartsWith('/')) new_path = new_path.Remove(0, 1);
                 return OpenFile(new_path);
             }
         }
@@ -74,8 +72,7 @@ namespace TrinitySceneEditor
                 if (SaveRoot == "") return;
 
             }
-            string filepath = "";
-            filepath = Path.Combine(SaveRoot, SceneFile.Relative);
+            string filepath = Path.Combine(SaveRoot, SceneFile.Relative);
             string? folder = Path.GetDirectoryName(filepath);
             if (!Path.Exists(folder) && folder != null)
             {
@@ -94,11 +91,11 @@ namespace TrinitySceneEditor
                 UseDescriptionForTitle = true,
                 Description = "Select the Folder to Save the Files to"
             };
-            if (Path.Exists(Startup.Settings.last_save_Folder))
-                dialog.SelectedPath = Startup.Settings.last_save_Folder;
+            if (Path.Exists(Settings.Last_save_Folder))
+                dialog.SelectedPath = Settings.Last_save_Folder;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                Startup.Settings.last_save_Folder = dialog.SelectedPath;
+                Settings.Last_save_Folder = dialog.SelectedPath;
                 return dialog.SelectedPath;
             }
             else return "";
