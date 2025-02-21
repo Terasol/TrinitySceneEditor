@@ -36,13 +36,12 @@
             closeTRSOT = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
             openSearch = new ToolStripMenuItem();
-            sceneContext = new ContextMenuStrip(components);
-            expandToolStripMenuItem = new ToolStripMenuItem();
+            SceneViewContext = new ContextMenuStrip(components);
             splitContainer1 = new SplitContainer();
             sceneView = new TreeView();
             propertyGrid1 = new PropertyGrid();
+            openFileDialog1 = new OpenFileDialog();
             menuStrip1.SuspendLayout();
-            sceneContext.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)splitContainer1).BeginInit();
             splitContainer1.Panel1.SuspendLayout();
             splitContainer1.Panel2.SuspendLayout();
@@ -95,24 +94,17 @@
             toolStripMenuItem1.Size = new Size(54, 20);
             toolStripMenuItem1.Text = "Search";
             // 
-            // toolStripMenuItem2
+            // openSearch
             // 
             openSearch.Name = "openSearch";
             openSearch.Size = new Size(180, 22);
             openSearch.Text = "open Search";
             openSearch.Click += ToolStripMenuItem2_Click;
             // 
-            // sceneContext
+            // SceneViewContext
             // 
-            sceneContext.Items.AddRange(new ToolStripItem[] { expandToolStripMenuItem });
-            sceneContext.Name = "sceneContext";
-            sceneContext.Size = new Size(114, 26);
-            // 
-            // expandToolStripMenuItem
-            // 
-            expandToolStripMenuItem.Name = "expandToolStripMenuItem";
-            expandToolStripMenuItem.Size = new Size(113, 22);
-            expandToolStripMenuItem.Text = "Expand";
+            SceneViewContext.Name = "sceneContext";
+            SceneViewContext.Size = new Size(61, 4);
             // 
             // splitContainer1
             // 
@@ -139,6 +131,7 @@
             sceneView.Size = new Size(180, 426);
             sceneView.TabIndex = 3;
             sceneView.AfterSelect += SceneView_AfterSelect;
+            sceneView.MouseUp += SceneView_MouseUp;
             // 
             // propertyGrid1
             // 
@@ -162,7 +155,6 @@
             FormClosing += SceneEditor_FormClosing;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            sceneContext.ResumeLayout(false);
             splitContainer1.Panel1.ResumeLayout(false);
             splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)splitContainer1).EndInit();
@@ -176,8 +168,7 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem openTRSOT;
-        private ContextMenuStrip sceneContext;
-        private ToolStripMenuItem expandToolStripMenuItem;
+        private ContextMenuStrip SceneViewContext;
         private ToolStripMenuItem closeTRSOT;
         private ToolStripMenuItem saveTRSOT;
         private SplitContainer splitContainer1;
@@ -185,5 +176,6 @@
         private PropertyGrid propertyGrid1;
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem openSearch;
+        private OpenFileDialog openFileDialog1;
     }
 }

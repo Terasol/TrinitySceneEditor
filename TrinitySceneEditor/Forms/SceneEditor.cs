@@ -11,6 +11,9 @@ namespace TrinitySceneEditor.Forms
         readonly ToolStripButton _propertyGridSaveButton;
         readonly ToolStripButton _propertyGridOpenSubSceneButton;
         readonly ToolStripButton _propertyGridswitchOTButton;
+        readonly ToolStripMenuItem _contextMenuRemove;
+        readonly ToolStripMenuItem _contextMenuLoadTRSOT;
+
         bool show_Objecttemplate = false;
         Search? Search;
 
@@ -45,6 +48,14 @@ namespace TrinitySceneEditor.Forms
                 Visible = false,
                 ToolTipText = "Switch Object Tempalte"
             };
+            _contextMenuLoadTRSOT = new("Load TRSOT", null, new EventHandler(LoadTRSOTToolStripMenuItem_Click), "Load TRSOT")
+            {
+                Visible = false,
+            };
+            _contextMenuRemove = new("Remove", null, new EventHandler(LoadTRSOTToolStripMenuItem_Click), "Remove")
+            {
+                Enabled = false,
+            };
             foreach (Control control in propertyGrid1.Controls)
             {
                 if (control is ToolStrip toolStrip)
@@ -54,6 +65,7 @@ namespace TrinitySceneEditor.Forms
                     toolStrip.Items.Add(_propertyGridswitchOTButton);
                 }
             }
+            SceneViewContext.Items.AddRange([_contextMenuRemove, _contextMenuLoadTRSOT]);
         }
 
         private void Open_File(SceneFile SceneFile)
@@ -62,7 +74,7 @@ namespace TrinitySceneEditor.Forms
             if (OpenScene != null)
             {
                 sceneView.Nodes.Clear();
-                sceneView.Nodes.Add(OpenScene.GetRootTreeNode());
+                sceneView.Nodes.Add(OpenScene.GetRootTreeNode(SceneViewContext));
                 if (Settings.Mode == Mode.Single_File)
                     saveTRSOT.Visible = true;
             }
@@ -119,17 +131,19 @@ namespace TrinitySceneEditor.Forms
                 propertyGrid1.SelectedObject = Deserelize_SceneEntryT(entry.SceneEntryT);
                 _propertyGridSaveButton.Visible = true;
                 _propertyGridswitchOTButton.Visible = false;
+                _contextMenuLoadTRSOT.Visible = false;
                 if (propertyGrid1.SelectedObject is gfl.scene.fb.SubSceneT)
                     _propertyGridOpenSubSceneButton.Visible = true;
                 else
                     _propertyGridOpenSubSceneButton.Visible = false;
-                if ((propertyGrid1.SelectedObject is ObjectTemplateT ot2))
+                if (propertyGrid1.SelectedObject is ObjectTemplateT ot2)
                 {
                     if (!show_Objecttemplate)
                     {
                         propertyGrid1.SelectedObject = Deserelize_SceneEntryT(ot2.EntityType, [.. ot2.EntityData]);
                     }
                     _propertyGridswitchOTButton.Visible = true;
+                    _contextMenuLoadTRSOT.Visible = true;
                 }
             }
             else if (sceneView.SelectedNode.Tag is trinity_SceneT)
@@ -137,12 +151,14 @@ namespace TrinitySceneEditor.Forms
                 propertyGrid1.SelectedObject = sceneView.SelectedNode.Tag;
                 _propertyGridSaveButton.Visible = false;
                 _propertyGridswitchOTButton.Visible = false;
+                _contextMenuLoadTRSOT.Visible = false;
             }
             else
             {
                 propertyGrid1.SelectedObject = null;
                 _propertyGridSaveButton.Visible = false;
                 _propertyGridswitchOTButton.Visible = false;
+                _contextMenuLoadTRSOT.Visible = false;
             }
         }
         private static readonly Dictionary<string, string> mapping = new()
@@ -293,6 +309,49 @@ namespace TrinitySceneEditor.Forms
         private void SceneEditor_FormClosing(object sender, FormClosingEventArgs e)
         {
             Search?.Close();
+        }
+
+        private void DeleteToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void LoadTRSOTToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            if (OpenScene == null) return;
+            if (sceneView.SelectedNode.Tag is EntryFileMapping entryFileMapping)
+            {
+                openFileDialog1.Title = "Select Trinity Scene Object Tempalte File";
+                openFileDialog1.Filter = "Trinity Scene (*.trsot;)|*.trsot;";
+                openFileDialog1.Multiselect = false; openFileDialog1.CheckFileExists = true;
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    var res = entryFileMapping.SceneFile.LoadTRSOTatTreeNode(sceneView.SelectedNode, openFileDialog1.FileName);
+                    if (!res.Item1)
+                    {
+                        if (res.Item2 is string s)
+                        {
+                            Console.WriteLine(s);
+                        }
+                    }
+                    SceneView_AfterSelect(null, null);
+                }
+            }
+        }
+
+        private void SceneView_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point ClickPoint = new(e.X, e.Y);
+                TreeNode ClickNode = sceneView.GetNodeAt(ClickPoint);
+                sceneView.SelectedNode = ClickNode;
+                if (ClickNode == null) return;
+
+                Point ScreenPoint = sceneView.PointToScreen(ClickPoint);
+                Point FormPoint = this.PointToClient(ScreenPoint);
+                SceneViewContext.Show(this, FormPoint);
+            }
         }
     }
 }
