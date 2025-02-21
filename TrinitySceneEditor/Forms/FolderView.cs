@@ -31,6 +31,21 @@ namespace TrinitySceneEditor.Forms
             thread2.Start();
         }
 
+        public new void Show()
+        {
+            base.Show();
+            if (Filemanager.ChangedFiles == 0)
+            {
+                this.Button_Revert_File_Changes.Enabled = false;
+                this.Button_Save_Changed_Files.Enabled = false;
+            }
+            else
+            {
+                this.Button_Revert_File_Changes.Enabled = true;
+                this.Button_Save_Changed_Files.Enabled = true;
+            }
+        }
+
         public void Setup_File_List()
         {
 
@@ -166,6 +181,8 @@ namespace TrinitySceneEditor.Forms
                     }
                 }
             }
+            Button_Save_Changed_Files.Enabled = false;
+            Button_Revert_File_Changes.Enabled = false;
         }
 
         private void SceneEditor_FormClosed(object? sender, FormClosedEventArgs e)
@@ -200,15 +217,19 @@ namespace TrinitySceneEditor.Forms
         private void Button_Save_Changed_Files_Click(object sender, EventArgs e)
         {
             string[] changedfiles = Filemanager.GetFilePathsOfChangedFiles();
-            Filemanager.SaveAllOpenFiles();
-            foreach (string path in changedfiles)
+            if (Filemanager.SaveAllOpenFiles())
             {
-                if (_SceneFileNodes.ContainsKey(path))
+                foreach (string path in changedfiles)
                 {
-                    _SceneFileNodes[path].NodeFont = new Font(treeView1.Font, FontStyle.Regular);
-                    _SceneFileNodes[path].Text = _SceneFileNodes[path].Text;
+                    if (_SceneFileNodes.ContainsKey(path))
+                    {
+                        _SceneFileNodes[path].NodeFont = new Font(treeView1.Font, FontStyle.Regular);
+                        _SceneFileNodes[path].Text = _SceneFileNodes[path].Text;
 
+                    }
                 }
+                Button_Save_Changed_Files.Enabled = false;
+                Button_Revert_File_Changes.Enabled = false;
             }
         }
     }

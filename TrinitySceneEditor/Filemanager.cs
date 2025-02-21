@@ -104,7 +104,7 @@ namespace TrinitySceneEditor
             else return "";
         }
 
-        public static void SaveAllOpenFiles(bool CloseFile = true)
+        public static bool SaveAllOpenFiles(bool CloseFile = true)
         {
             string SaveRoot = GetSavePath();
             if (SaveRoot != "")
@@ -114,7 +114,9 @@ namespace TrinitySceneEditor
                 {
                     SaveFile(file, SaveRoot, CloseFile);
                 }
+                return true;
             }
+            return false;
         }
     }
 }
